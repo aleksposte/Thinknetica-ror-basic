@@ -6,8 +6,12 @@
 
 puts "Расчет площади треугольника"
 puts "Введите основание треугольника"
-a = gets.chomp
+a = gets.chomp.to_f
 puts "Введите высоту треугольника"
-h = gets.chomp
-s_triangle = (a.to_i*h.to_i)/2
-puts "Площадь треугольника с основанием #{a} и высотой #{h} равна: #{s_triangle}"
+h = gets.chomp.to_f
+
+# Лучше назвать triangle_square или 
+# triangle_area - что-то вроде этого.
+
+triangle_area = (a * h) / 2 #Переименовал
+puts "Площадь треугольника с основанием #{a} и высотой #{h} равна: #{triangle_area}"

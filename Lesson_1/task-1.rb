@@ -10,9 +10,15 @@
 puts "Привет, как Ваше имя?"
 user_name = gets.chomp
 puts "Какой у Вас рост?"
-user_growth = gets.chomp
 
-user_weight = user_growth.to_i - 110
+# Лучше всего делать приведение типов
+#  на этапе определения переменных, а не в выражениях. 
+#  Это проще воспринимается.
+# Кроме того, рост может быть не целым числом.
+
+user_growth = gets.chomp.to_f # Получили данные, преобразовали в число.
+
+user_weight = user_growth - 110
 
 if user_weight < 0 
   puts "#{user_name}, Ваш вес уже оптимальный"

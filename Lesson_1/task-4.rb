@@ -19,21 +19,20 @@
 
 puts "Решение квадратных уравнений"
 puts "Введите коэффициент a:"
-a = gets.chomp.to_i
+a = gets.chomp.to_f
 puts "Введите коэффициент b:"
-b = gets.chomp.to_i
+b = gets.chomp.to_f
 puts "Введите коэффициент c:"
-c = gets.chomp.to_i
+c = gets.chomp.to_f
 
-d = b**2 - ( 4*a*c ) # находим дискриминант
-# puts d
+d = b**2 - (4 * a * c) # находим дискриминант
 
 if d > 0
-  x1 = ( - b + Math.sqrt( b**2 - ( 4*a*c ) ) ) / ( 2*a )
-  x2 = ( - b - Math.sqrt( b**2 - ( 4*a*c ) ) ) / ( 2*a )
+  x1 = (- b + Math.sqrt(b**2 - 4 * a * c)) / 2 * a # По моему все лишние скобки убрал :)
+  x2 = (- b + Math.sqrt(b**2 - 4 * a * c)) / 2 * a
   puts "Дискриминант равен #{d}, корень 1 равен: #{x1}, корень 2 равен: #{x2}" 
 elsif d == 0
-  x = - ( b / ( 2*a ) )
+  x = - b / 2 * a
   puts "Дискриминант равен #{d}, корень равен: #{x}" 
 else
   puts "Дискриминант равен #{d}, корней нет!" 
