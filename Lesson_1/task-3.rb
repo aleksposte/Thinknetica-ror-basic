@@ -23,49 +23,30 @@ b = gets.chomp.to_f
 puts "Введите длину третьей стороны треугольника"
 c = gets.chomp.to_f
 
-triangle = [a, b, c]
-hypotenuse = triangle.max # Ищем гипотенузу
+if a > b && a > c  # Сравниваем стороны, ищем гипотенузу.
+  hypotenuse = a
+  side_two = b
+  side_three = c
+elsif b > a && b > c
+  hypotenuse = b
+  side_two = a
+  side_three = c
+elsif c > a && c > b
+  hypotenuse = c
+  side_two = b
+  side_three = a
+end
 
 # Проверяем треугольник 
 # на выполнение условий: прямоугольный, равнобедренный
 
-if hypotenuse**2 == b**2 + c**2
+if hypotenuse**2 == side_two**2 + side_three**2
   puts "Треугольник является прямоугольным"
-  if b == c
+  if side_two == side_three
     puts " и также треугольник равнобедренный"
   end
 else 
   puts "Треугольник не является прямоугольным"
 end
-
-
-# Старый вариант решения
-# if a > b && a > c  # Сравниваем стороны, ищем гипотенузу.
-#   hypotenuse = a
-#   side_two = b
-#   side_three = c
-# elsif b > a && b > c
-#   hypotenuse = b
-#   side_two = a
-#   side_three = c
-# elsif c > a && c > b
-#   hypotenuse = c
-#   side_two = b
-#   side_three = a
-# end
-
-# if side_two == side_three && side_three == hypotenuse  
-#   puts "Треугольник является равносторонним"
-# elsif side_two == side_three || side_three == hypotenuse
-#   puts "Треугольник является равнобедренным"
-# elsif hypotenuse**2 == side_two**2 + side_three**2
-#   puts "Треугольник является прямоугольным"
-# else
-# end 
-
-
-# puts "Треугольник является равнобедренным" if a == b || a == c || b == c
-# puts "Треугольник является равносторонним" if a == b && a == c
-  
 
 
