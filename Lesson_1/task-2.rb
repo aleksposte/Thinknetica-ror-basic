@@ -13,5 +13,5 @@ h = gets.chomp.to_f
 # Лучше назвать triangle_square или 
 # triangle_area - что-то вроде этого.
 
-triangle_area = (a * h) / 2 #Переименовал
+triangle_area = (a * h) / 2.0 #Переименовал
 puts "Площадь треугольника с основанием #{a} и высотой #{h} равна: #{triangle_area}"

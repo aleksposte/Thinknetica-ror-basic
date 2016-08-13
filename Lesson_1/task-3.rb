@@ -23,44 +23,46 @@ b = gets.chomp.to_f
 puts "Введите длину третьей стороны треугольника"
 c = gets.chomp.to_f
 
-if a > b && a > c  # Сравниваем стороны, ищем гипотенузу.
-  hypotenuse = a
-  side_two = b
-  side_three = c
-elsif b > a && b > c
-  hypotenuse = b
-  side_two = a
-  side_three = c
-elsif c > a && c > b
-  hypotenuse = c
-  side_two = b
-  side_three = a
-end
+triangle = [a, b, c]
+hypotenuse = triangle.max # Ищем гипотенузу
 
 # Проверяем треугольник 
-# на выполнение условий: равносторонний, равнобедренный, прямоугольный
+# на выполнение условий: прямоугольный, равнобедренный
 
-if side_two == side_three && side_three == hypotenuse  
-  puts "Треугольник является равносторонним"
-elsif side_two == side_three || side_three == hypotenuse
-  puts "Треугольник является равнобедренным"
-elsif hypotenuse**2 == side_two**2 + side_three**2
+if hypotenuse**2 == b**2 + c**2
   puts "Треугольник является прямоугольным"
-else
-end 
+  if b == c
+    puts " и также треугольник равнобедренный"
+  end
+else 
+  puts "Треугольник не является прямоугольным"
+end
 
 
-
-# triangle = [a, b, c]
-# hypotenuse = triangle.max
-
-# if hypotenuse = a && a**2 == b**2 + c**2
-#   puts "Треугольник является прямоугольным"
-# elsif hypotenuse = b && b**2 == a**2 + c**2
-#   puts "Треугольник является прямоугольным"
-# elsif hypotenuse = c && c**2 == a**2 + b**2
-#   puts "Треугольник является прямоугольным"
+# Старый вариант решения
+# if a > b && a > c  # Сравниваем стороны, ищем гипотенузу.
+#   hypotenuse = a
+#   side_two = b
+#   side_three = c
+# elsif b > a && b > c
+#   hypotenuse = b
+#   side_two = a
+#   side_three = c
+# elsif c > a && c > b
+#   hypotenuse = c
+#   side_two = b
+#   side_three = a
 # end
+
+# if side_two == side_three && side_three == hypotenuse  
+#   puts "Треугольник является равносторонним"
+# elsif side_two == side_three || side_three == hypotenuse
+#   puts "Треугольник является равнобедренным"
+# elsif hypotenuse**2 == side_two**2 + side_three**2
+#   puts "Треугольник является прямоугольным"
+# else
+# end 
+
 
 # puts "Треугольник является равнобедренным" if a == b || a == c || b == c
 # puts "Треугольник является равносторонним" if a == b && a == c
