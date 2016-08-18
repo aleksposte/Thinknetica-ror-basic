@@ -16,8 +16,6 @@
  
 
 list_products = {}
-
-
 product_name = 0
 product_price = 0
 product_amount = 0
@@ -36,25 +34,24 @@ product_price = gets.chomp.to_f
 puts "Ввведите кол-во товара"
 product_amount = gets.chomp.to_f
 
-# Записываем в hash, и сразу считаем сумму за один товар
-list_products[product_name] = { 
-  # product_name: product_name,
-                              price:           product_price,
-                              amount:          product_amount,
-                              cost_of_product: product_price * product_amount
-}
-puts list_products
+# Записываем в hash, считаем стоимость за один товар.
+# Решение не мое :(, сделано с помощью Анны Селивановой, сам не 
+# додумался как реализовать "if !list_products[product_name]"
+
+list_products[product_name] = Hash.new(0) if !list_products[product_name]
+list_products[product_name][:price] = product_price
+list_products[product_name][:amount] += product_amount
+list_products[product_name][:cost_of_product] = product_price * list_products[product_name][:amount]
 
 # Считаем полную сумму товаров:
 sum_all_products += product_price * product_amount
-# list_products[product_name][:amount] += product_amount
 end
 
 puts "Вы ввели 'стоп', подсчет товаров закончен, в вашей корзине:"
-
 puts "Список товаров #{list_products}"
 
 list_products.each_pair do |name, sum|
   puts "Сумма за #{name} равна #{sum[:cost_of_product]}"
 end
+
 puts "Итоговая сумма за товары равна: #{sum_all_products}"
