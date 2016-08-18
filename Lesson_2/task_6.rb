@@ -16,7 +16,7 @@
  
 
 list_products = {}
-all_products = {list_products: {}}
+
 
 product_name = 0
 product_price = 0
@@ -37,7 +37,7 @@ puts "Ввведите кол-во товара"
 product_amount = gets.chomp.to_f
 
 # Записываем в hash, и сразу считаем сумму за один товар
-all_products[:list_products][product_name] = { 
+list_products[product_name] = { 
   # product_name: product_name,
                               price:           product_price,
                               amount:          product_amount,
