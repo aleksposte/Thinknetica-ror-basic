@@ -14,42 +14,47 @@
 # итоговую сумму всех покупок в "корзине".
 
  
+
 list_products = {}
-cost_of_product = {}
-all_products = {}
+all_products = {list_products: {}}
 
 product_name = 0
 product_price = 0
 product_amount = 0
+cost_of_product = 0
 sum_all_products = 0
 
 # Получаем данные от пользователя
 loop do 
-  puts "Ввведите название товара" 
-  product_name = gets.chomp
+puts "Ввведите название товара" 
+product_name = gets.chomp
 
-  break if product_name == "стоп" 
+break if product_name == "стоп" 
+ 
+puts "Ввведите стоимость товара"
+product_price = gets.chomp.to_f
+puts "Ввведите кол-во товара"
+product_amount = gets.chomp.to_f
+
+# Записываем в hash, и сразу считаем сумму за один товар
+all_products[:list_products][product_name] = { 
+  # product_name: product_name,
+                              price:           product_price,
+                              amount:          product_amount,
+                              cost_of_product: product_price * product_amount
+}
+puts list_products
+
+# Считаем полную сумму товаров:
+sum_all_products += product_price * product_amount
    
-  puts "Ввведите стоимость товара"
-  product_price = gets.chomp.to_f
-  puts "Ввведите кол-во товара"
-  product_amount = gets.chomp.to_f
-
-  # Записываем в hash
-  list_products[product_name] = { product_price => product_amount } 
-  # puts list_products
-
-  # Считаем суммы (по товару и полную)
-  cost_of_product[product_name] = product_price * product_amount
-  sum_all_products += product_price * product_amount
 end
 
 puts "Вы ввели 'стоп', подсчет товаров закончен, в вашей корзине:"
 
 puts "Список товаров #{list_products}"
 
-cost_of_product.each do |amount, sum|
-  puts "Сумма за товар #{amount} равна: #{sum}"
+list_products.each_pair do |name, sum|
+  puts "Сумма за #{name} равна #{sum[:cost_of_product]}"
 end
-
 puts "Итоговая сумма за товары равна: #{sum_all_products}"

@@ -21,39 +21,71 @@
 # Таким образом, 2000 г. является особым високосным годом, 
 # который бывает лишь раз в 400 лет.
 
+month = 0
+all_days_in_months = 0 
 
 puts "Введите дату, 
 порядковый номер которой вы хотите узнать,
 в формате Д.М.Г "
 
 # Получам от пользователя данные, записываем в массив.
-arr_date = gets.chomp.split(".").to_a
+arr_date = gets.chomp.split(".")
 # puts arr_date
-user_date = arr_date[0].to_i
+user_day = arr_date[0].to_i 
 user_month = arr_date[1].to_i
 user_year = arr_date[2].to_i
 
-# Проверяем, високосный ли год.
-leap_factor = 0
-if user_month > 2
-  if user_year % 4 == 0 || user_year % 400 == 0 && user_year % 100 != 0
-    # puts "year - високосный" 
-    leap_factor = 1
-  else 
-    leap_factor = 0
-  end
-end
-
 # Вычисляем количество месяцев до указанной даты.
 months_of_year = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 30]
-month = 0 
-all_days_in_months = 0 
-while month < user_month
-    all_days_in_months += months_of_year[month]
-    month += 1
-    puts all_days_in_months
+
+# Проверяем, високосный ли год. (Убрал флаги, спасибо за совет, меняю дни в феврале)
+months_of_year[1] = 29 if user_year % 4 == 0 || user_year % 400 == 0 && user_year % 100 != 0  
+
+months_of_year.each_with_index do |d, m| # Пределал на итератор
+  if m < user_month - 1 # Иначе январь прибавляет по умолчанию :)
+    all_days_in_months += d
+  month += 1
 end
+end 
 
 # Вычисляем номер даты.
-num_date = user_date + all_days_in_months + leap_factor
-puts "Порядковый номер даты, которую вы ввели: #{num_date}"
+num_days = user_day + all_days_in_months
+puts "Порядковый номер даты, которую вы ввели: #{num_days}"
+
+
+# Старый вариант
+# puts "Введите дату, 
+# порядковый номер которой вы хотите узнать,
+# в формате Д.М.Г "
+
+# # Получам от пользователя данные, записываем в массив.
+# arr_date = gets.chomp.split(".")
+# # puts arr_date
+# user_day = arr_date[0].to_i # Ошибся  date => day
+# user_month = arr_date[1].to_i
+# user_year = arr_date[2].to_i
+
+# # Проверяем, високосный ли год.
+# leap_factor = 0
+# if user_month > 2
+#   if user_year % 4 == 0 || user_year % 400 == 0 && user_year % 100 != 0
+#     # puts "year - високосный" 
+#     leap_factor = 1
+#   else 
+#     leap_factor = 0
+#   end
+# end
+
+# # Вычисляем количество месяцев до указанной даты.
+# months_of_year = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 30]
+# month = 0 
+# all_days_in_months = 0 
+# while month < user_month
+#     all_days_in_months += months_of_year[month]
+#     month += 1
+#     puts all_days_in_months
+# end
+
+# # Вычисляем номер даты.
+# num_date = user_day + all_days_in_months + leap_factor
+# puts "Порядковый номер даты, которую вы ввели: #{num_date}"

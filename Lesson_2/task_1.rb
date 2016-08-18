@@ -18,7 +18,7 @@ list_of_months = {
 
 puts "List of months with 30 days: "
 
-list_of_months.each do |month, days|
+list_of_months.each_pair do |month, days| #замены each на each_pair
   if days == 30
     puts "#{month}\n"
   end
