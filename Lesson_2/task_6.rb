@@ -47,7 +47,7 @@ puts list_products
 
 # Считаем полную сумму товаров:
 sum_all_products += product_price * product_amount
-   
+# list_products[product_name][:amount] += product_amount
 end
 
 puts "Вы ввели 'стоп', подсчет товаров закончен, в вашей корзине:"
