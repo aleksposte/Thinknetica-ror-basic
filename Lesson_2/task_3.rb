@@ -1,4 +1,6 @@
-# 3. Заполнить массив числами фибоначи до 100
+
+
+# Старый вариант:
 
 # Изменил место определения arr_i 
 i_prev = 0
@@ -9,7 +11,7 @@ puts "Массив с числами фибоначи до 100:"
 while i_cur < 100 do 
   sum_i = i_prev + i_cur
 
-  arr_i << sum_i
+  arr_i.push sum_i
 
   i_prev = i_cur
   i_cur = arr_i.last

@@ -2,7 +2,7 @@
 
 # Преределал, используя итератор step
 arr_nums = []
-10.step(100, 5) { |i| arr_nums << i }
+10.step(100, 5) { |i| arr_nums.push i } # замена << => push
 puts arr_nums
 
 # Старый вариант
