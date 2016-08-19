@@ -38,7 +38,7 @@ product_amount = gets.chomp.to_f
 # Решение не мое :(, сделано с помощью Анны Селивановой, сам не 
 # додумался как реализовать "if !list_products[product_name]"
 
-list_products[product_name] = Hash.new(0) if !list_products[product_name]
+list_products[product_name] = Hash.new(0) unless list_products[product_name]
 list_products[product_name][:price] = product_price
 list_products[product_name][:amount] += product_amount
 list_products[product_name][:cost_of_product] = product_price * list_products[product_name][:amount]
