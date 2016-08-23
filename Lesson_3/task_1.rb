@@ -12,31 +12,31 @@
 
 class Station
 
+  attr_accessor :station_name, 
+                :trains
+             
   def initialize(station_name)
-    @station_name = station_name
     @trains = {}
-    # @train_name = 0
-    # @train_type = 0
-    puts @station_name
+    puts station_name
   end
 
   def accept_train(train_name, train_type)
-    @trains[train_name] = train_type
+    self.trains[train_name] = train_type
   end
 
   def depart_train(train_name)
-    @trains.delete(train_name)
-    puts "Со станции #{@station_name} отбыл поезд: #{train_name}"
+    trains.delete(train_name)
+      puts "Со станции #{station_name} отбыл поезд: #{train_name}"
 
-    puts "На станции #{@station_name} остались поезда:"
-      @trains.each_pair do |name, type|
+    puts "На станции #{station_name} остались поезда:"
+      trains.each_pair do |name, type|
         puts "#{name}, тип поезда: #{type} \n"
       end
   end
 
   def all_trains
-    puts "На станции #{@station_name} находятся поезда:"
-      @trains.each_pair do |name, type|
+    puts "На станции #{station_name} находятся поезда:"
+      trains.each_pair do |name, type|
         puts "#{name}, тип поезда: #{type} \n"
       end
   end
@@ -53,32 +53,37 @@ end
 # Может выводить список всех станций по-порядку от начальной 
 # до конечной
 
+
 class Route
-# list of stations
+
+  attr_accessor :list_stations,
+                :last_station,
+                :all_stations
+
   def initialize(first_station, last_station)
     @list_stations = []
     @first_station = first_station
-    @last_station = last_station
-@list_stations = [@first_station]
-    # @list_stations = [@first_station, @last_station]
-    
-    # puts @list_stations
+    @last_station = last_station 
+    # почему, если убрать определение @last_station- то 
+    # all_stations, в  значении последней стании ничкго не выводит???
+    list_stations.push(first_station)
   end
 
   def add_station(name_add_station)
-    @add_station = name_add_station
-    # @list_add_stations = []
-    # @list_add_stations.push(@add_station)
-@list_stations.push(@add_station)
+    # @add_station = name_add_station
+    list_stations.push(name_add_station)
+    puts list_stations
+  end
+
+  def delete_station(name_delete_station)
+    # @delete_station = name_delete_station
+    list_stations.delete(name_delete_station)
+    puts list_stations
   end
 
   def all_stations
-    @list_all_stations = @list_stations.push(@last_station)
-    puts @list_all_stations
-    # @list_all_stations = []
-    # @list_all_stations << @list_add_stations
-    # # @list_all_stations << @first_station << @add_stations << @last_station
-    # puts @list_all_stations
+    all_stations = list_stations.push(last_station)
+    puts all_stations
   end
 
 end
@@ -90,13 +95,81 @@ end
 # Может набирать скорость
 # Может показывать текущую скорость
 # Может тормозить (сбрасывать скорость до нуля)
+
 # Может показывать количество вагонов
 # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, 
 #   метод просто увеличивает или уменьшает количество вагонов). 
 # Прицепка/отцепка вагонов может осуществляться 
 # только если поезд не движется.
+
 # Может принимать маршрут следования (объект класса Route)
 # Может перемещаться между станциями, указанными в маршруте.
 # Показывать предыдущую станцию, текущую, следующую, 
 # на основе маршрута
 #  passenger
+
+class Train
+
+  attr_accessor :speed,
+                :carriage
+
+  def initialize(num, type, carriage = 0, speed = 0)
+    @num = num
+    @type = type
+    @carriage = carriage
+    @speed = speed
+  end
+
+# Скорость поезда
+  def go=(speed)
+    self.speed = speed
+  end
+
+  def stop
+    self.speed = 0
+  end
+
+  def current_speed
+    puts speed
+  end
+
+# Вагоны
+
+  def add_carriage
+    if speed != 0
+      puts "Cначала остановите поезд!"
+    else 
+      self.carriage += 1
+    end
+  end
+
+  def delete_carriage
+    if speed != 0
+      puts "Cначала остановите поезд!"
+    else 
+      self.carriage -= 1
+    end
+  end
+
+  def all_carriage
+    puts carriage
+  end
+
+# Маршрут следования
+
+# Может принимать маршрут следования (объект класса Route)
+# Может перемещаться между станциями, указанными в маршруте.
+# Показывать предыдущую станцию, текущую, следующую, 
+# на основе маршрута
+#  passenger
+  def route_train(route)
+    @route = route
+    @all_stations = []
+    @current_station = route.all_stations[0]
+    puts @current_station
+  end
+
+
+
+
+end
