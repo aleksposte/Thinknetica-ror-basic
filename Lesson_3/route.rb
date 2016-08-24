@@ -16,28 +16,24 @@ class Route
 
   def initialize(first_station, last_station)
     @list_stations = []
-    @first_station = first_station
-    @last_station = last_station 
-    # почему, если убрать определение @last_station- то 
-    # all_stations, в  значении последней стании ничкго не выводит???
+    # @first_station = first_station
+    # @last_station = last_station
     list_stations.push(first_station)
+    list_stations.push(last_station )
   end
 
   def add_station(name_add_station)
-    # @add_station = name_add_station
-    list_stations.push(name_add_station)
-    puts list_stations
+    list_stations.insert(-2, name_add_station)
+    # puts list_stations
   end
 
   def delete_station(name_delete_station)
-    # @delete_station = name_delete_station
     list_stations.delete(name_delete_station)
-    puts list_stations
+    # puts list_stations
   end
 
   def all_stations
-    all_stations = list_stations.push(last_station)
-    puts all_stations
+    puts list_stations
   end
 
 end
