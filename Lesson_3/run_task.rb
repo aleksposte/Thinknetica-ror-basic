@@ -2,30 +2,39 @@ require_relative 'train.rb'
 require_relative 'station.rb'
 require_relative 'route.rb'
 
-puts "Список методов в классах"
+info =  <<TEXT
+Список методов в классах:
+      
+      Station:
+            initialize(name)
 
-puts "Station: \n
-      accept_train(train_name, train_type) \n 
-      depart_train(train_name) \n 
-      all_trains\n\n"
+            add_train(train)
+            delete_train(train)
+            print_all_trains
 
-puts "Route: \n
-      add_station(name_add_station) \n 
-      delete_station(name_add_station) \n 
-      all_stations \n\n"
+      Train:
+            initialize(num, type)
 
-puts "Train: \n
-      go=(speed) \n 
-      stop \n 
-      current_speed \n
+            go=(speed)
+            stop
+            print_speed
 
-      add_carriage \n
-      delete_carriage \n
-      all_carriage \n 
+            add_carriage
+            delete_carriage
+            print_all_carriage
 
-      route_train(list_stations) \n
-      next_station \n
-      prev_station \n
+            accept_route(route)
+            print_next_station
+            print_prev_station
+            go_next_station
+            go_prev_station
 
-      go_next_station \n
-      go_prev_station \n"
+      Route: 
+            initialize(first, last)
+
+            add_station(station)
+            delete_station(station)
+            print_all_stations
+
+TEXT
+puts info

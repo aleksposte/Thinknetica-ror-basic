@@ -7,33 +7,34 @@
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной 
 # до конечной
-
 class Route
 
-  attr_accessor :list_stations,
-                :last_station,
-                :all_stations
+  attr_accessor :route
 
-  def initialize(first_station, last_station)
-    @list_stations = []
-    # @first_station = first_station
-    # @last_station = last_station
-    list_stations.push(first_station)
-    list_stations.push(last_station )
+  def initialize(first, last)
+    # Можно сразу объявить массив с элементами: [first, last].
+    @route = [first, last]
   end
 
-  def add_station(name_add_station)
-    list_stations.insert(-2, name_add_station)
-    # puts list_stations
+  def add_station(station)
+    route.insert(-2, station)
+    puts "В маршрут была добавлена станция #{station}"
   end
 
-  def delete_station(name_delete_station)
-    list_stations.delete(name_delete_station)
-    # puts list_stations
+  def delete_station(station)
+    # Хорошо бы проверять на удаление конечных станций.
+    if station == self.route[0] || station == self.route.last
+      puts "Это конечная станция, ее нельзя удалять!"
+    else
+      route.delete(station)
+      puts "Из маршрута была удалена станция #{station}"
+    end
   end
 
-  def all_stations
-    puts list_stations
+  # Если мы выводим станции, лучше сделать метод print_all_stations. Иначе метод чтения переопределяется и возникает путаница.
+
+  def print_all_stations
+    puts route 
   end
 
 end

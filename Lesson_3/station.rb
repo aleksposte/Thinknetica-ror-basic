@@ -12,36 +12,54 @@
 
 class Station
 
-  attr_accessor :station_name, 
+  attr_accessor :name, 
                 :trains,
-                :train_name,
-                :train_type
+                :cargo_nums,
+                :passenger_nums
 
-  def initialize(station_name)
+  def initialize(name)
+    @name = name
     @trains = {}
-    @station_name = station_name
-    # puts station_name
+    @cargo_nums = []
+    @passenger_nums = []
   end
 
-  def accept_train(train_name, train_type)
-    self.trains[train_name] = train_type
-      puts "На станцию #{self.station_name} прибыл поезд: #{train_name}"
+
+# При такой конструкции хэша много дублированных данных:
+
+# {
+#   train_1 => :type_1,
+#   train_2 => :type_1,
+#   train_3 => :type_1,
+#   train_4 => :type_2
+# }
+# Будет лучше изменить тактику и ключом сделать тип поезда, 
+# а значением - массив поездов. Кроме того, для нас привычней 
+# когда мы отталкиваемся от множества, то есть сначала говорим 
+# что вот у нас такой-то тип, а потом уже перечисляем объекты этого типа.
+
+# Переделал, проверяю к какому классу относиться, 
+# и записываю в какой-либо из массивов.Надеюсь правильно сделал и данный вариант приемлим.
+
+  def add_train(train)
+    if train.type == 'cargo'
+      self.cargo_nums.push(train.num)
+    elsif train.type == 'passenger'
+      self.passenger_nums.push(train.num)
+    end
   end
 
-  def depart_train(train_name)
-    trains.delete(train_name)
-      puts "Со станции #{station_name} отбыл поезд: #{train_name}"
-    # puts "На станции #{station_name} остались поезда:"
-    #   trains.each_pair do |name, type|
-    #     puts "#{name}, тип поезда: #{type} \n"
-    #   end
+  def delete_train(train)
+    trains.delete(train.num)
+      puts "Со станции #{name} отбыл поезд: #{train.num}"
   end
 
-  def all_trains
-    puts "На станции #{station_name} находятся поезда:"
-      trains.each_pair do |name, type|
-        puts "#{name}, тип поезда: #{type} \n"
-      end
+  def print_all_trains
+    puts "На станции #{name} находиться #{cargo_nums.size} грузовых и #{passenger_nums.size} пассажирских"
+    puts "Грузовые:"
+    puts self.cargo_nums.each { |train| " #{train} \n" } 
+    puts "Пассажирские:"
+    puts self.passenger_nums.each { |train| " #{train} \n" } 
   end
 
 end

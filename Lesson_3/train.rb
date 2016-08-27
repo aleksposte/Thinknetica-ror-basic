@@ -25,37 +25,41 @@ class Train
                 :carriage,
                 :speed,
                 :current_station,
-                :list_stations
+                :route
                 
-  def initialize(num, type, carriage = 0, speed = 0)
+  def initialize(num, type)
     @num = num
     @type = type
-    @carriage = carriage
-    @speed = speed
-    @list_stations = list_stations
-    @current_station = current_station
+    @carriage = 0
+    @speed = 0
+    @route = []
   end
 
 # Скорость поезда
+
+# Первый момент - мы можем сразу обращаться к инстанс переменной @speed.
+# Второй момент, не думаю что поезд мгновенно может изменить значение скорости, 
+# скорее увеличить её.
+
   def go=(speed)
-    self.speed = speed
+    @speed += speed
   end
 
   def stop
     self.speed = 0
   end
-
-  def current_speed
+# Лучше назвать это print_speed.
+  def print_speed
     puts speed
   end
 
 # Вагоны
-
+# То же самое, инстанс переменная @carriage здесь доступна.
   def add_carriage
     if speed != 0
       puts "Cначала остановите поезд!"
     else 
-      self.carriage += 1
+      @carriage += 1
     end
   end
 
@@ -63,11 +67,11 @@ class Train
     if speed != 0
       puts "Cначала остановите поезд!"
     else 
-      self.carriage -= 1
+      @carriage -= 1
     end
   end
 
-  def all_carriage
+  def print_all_carriage
     puts carriage
   end
 
@@ -77,41 +81,33 @@ class Train
 # Может перемещаться между станциями, указанными в маршруте.
 # Показывать предыдущую станцию, текущую, следующую, 
 # на основе маршрута
-#  passenger
+# Маршрут, передача станций поезду
+
+# Мы должны передавать поезду именно маршрут, а не список станций.
+# Немного не ясное название метода. Лучше take_route или accept_route, что-то подобное.
   
-  # attr_accessor :current_station, 
-                # :list_stations
- 
- # Маршрут, передача станций поезду
-
-  def route_train(list_stations)
-    @list_stations = list_stations
-
-    # ***
-    # Почему если не указать @list_stations = list_stations
-    # в этом методе, а указать только в initialize,
-    # то следующий код "self.current_station = self.list_stations[0]
-    # "не работает?
-    # ***
-
-    self.current_station = self.list_stations[0]
-    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{list_stations.first} - #{list_stations.last}"
+  def accept_route(route)
+    @route = route.route
+    self.current_station = self.route.first
+    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{self.route.first} - #{self.route.last}"
   end
 
-  def next_station
-     if self.current_station == self.list_stations.last
+# Если мы выводим предыдущую станцию, лучше назвать метод print_prev_station.
+
+  def print_next_station
+     if self.current_station == self.route.last
       puts "Это последняя станция"
     else
-      next_station = self.list_stations[self.list_stations.index(self.current_station) + 1]
+      next_station = self.route[self.route.index(self.current_station) + 1]
       puts "Следущая станция #{next_station}"
     end
   end
 
-  def prev_station
-    if self.current_station == self.list_stations.first
+  def print_prev_station
+    if self.current_station == self.route.first
       puts "Это первая станция"
     else
-      prev_station = self.list_stations[self.list_stations.index(self.current_station) - 1]
+      prev_station = self.route[self.route.index(self.current_station) - 1]
       puts "Предыдущая станция #{prev_station}"
     end
   end
@@ -119,15 +115,22 @@ class Train
 # Премещения поезда между станциями
 
   def go_next_station
-    self.current_station = self.list_stations[self.list_stations.index(self.current_station) + 1]
+    self.current_station = self.route[self.route.index(self.current_station) + 1]
     puts "Поезд приехал на станцию #{self.current_station}"
-    puts "Это конечная станция, можно ехать обратно" if self.current_station == self.list_stations.last
+    puts "Это конечная станция, можно ехать обратно" if self.current_station == self.route.last
   end
 
+# Подход в принципе нормальный, хотя вряд ли в реальности поезд будет двигаться назад. 
+# Скорее он доберётся до конечной станции и вот тогда да, будет двигаться в обратном направлении.
+  
   def go_prev_station
-    self.current_station = self.list_stations[self.list_stations.index(self.current_station) - 1]
+    if self.current_station == self.route.first
+      puts "Это первая станция, можно ехать только вперед"
+    elsif self.current_station != self.route.last
+      puts "Это еще не конечная станция, едем вперед" 
+    else self.current_station = self.route[self.route.index(self.current_station) - 1]
     puts "Поезд приехал на станцию #{self.current_station}"
-    puts "Это первая станция, можно ехать только вперед" if self.current_station == self.list_stations.first
+    end
   end
 
 end
