@@ -15,7 +15,7 @@ info =  <<TEXT
       Train:
             initialize(num, type)
 
-            go=(speed)
+            accelerate
             stop
             print_speed
 

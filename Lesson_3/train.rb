@@ -41,12 +41,20 @@ class Train
 # Второй момент, не думаю что поезд мгновенно может изменить значение скорости, 
 # скорее увеличить её.
 
-  def go=(speed)
+# Теперь поскольку мы увеличиваем скорость то метод со знаком = на конце не вполне годится. 
+# Лучше назвать increase_speed, accelerate, что-то в этом духе.
+#   def go=(speed)
+def accelerate(speed)
     @speed += speed
   end
 
+# Опять же, через self мы именно метод вызываем и это будет дольше работать, 
+# чем сразу обратиться к инстанс переменной. Принцип инкапсуляции не нарушается, 
+# потому что 
+# мы обращаемся к данным объекта уже находясь в контексте этого объекта.
   def stop
-    self.speed = 0
+    # self.speed = 0
+    @speed = 0
   end
 # Лучше назвать это print_speed.
   def print_speed
@@ -55,8 +63,9 @@ class Train
 
 # Вагоны
 # То же самое, инстанс переменная @carriage здесь доступна.
+# Инстанс переменная @speed тоже доступна )
   def add_carriage
-    if speed != 0
+    if @speed != 0
       puts "Cначала остановите поезд!"
     else 
       @carriage += 1
@@ -64,7 +73,7 @@ class Train
   end
 
   def delete_carriage
-    if speed != 0
+    if @speed != 0
       puts "Cначала остановите поезд!"
     else 
       @carriage -= 1
@@ -122,14 +131,18 @@ class Train
 
 # Подход в принципе нормальный, хотя вряд ли в реальности поезд будет двигаться назад. 
 # Скорее он доберётся до конечной станции и вот тогда да, будет двигаться в обратном направлении.
-  
+
+# После else обычно пишут на новой строке.
+
   def go_prev_station
     if self.current_station == self.route.first
       puts "Это первая станция, можно ехать только вперед"
-    elsif self.current_station != self.route.last
+    elsif 
+      self.current_station != self.route.last
       puts "Это еще не конечная станция, едем вперед" 
-    else self.current_station = self.route[self.route.index(self.current_station) - 1]
-    puts "Поезд приехал на станцию #{self.current_station}"
+    else #Здесь наверное равенство должно быть?
+      self.current_station == self.route[self.route.index(self.current_station) - 1]
+      puts "Поезд приехал на станцию #{self.current_station}"
     end
   end
 

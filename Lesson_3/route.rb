@@ -8,7 +8,7 @@
 # Может выводить список всех станций по-порядку от начальной 
 # до конечной
 class Route
-
+# Исходя из такого использования, пожалуй, route в классе Route было лучше.
   attr_accessor :route
 
   def initialize(first, last)
@@ -23,7 +23,9 @@ class Route
 
   def delete_station(station)
     # Хорошо бы проверять на удаление конечных станций.
-    if station == self.route[0] || station == self.route.last
+    # У нас же есть доступ к инстанс переменной здесь, 
+    # поэтому мы можем сразу обратиться к ней: @route.
+    if station == @route[0] || station == @route.last
       puts "Это конечная станция, ее нельзя удалять!"
     else
       route.delete(station)
