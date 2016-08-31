@@ -32,7 +32,7 @@ class Train
 #   end
 
 # Маршрут следования
-  
+ # Переделать с  использование объекта route 
   def accept_route(route)
     @route = route.route
     self.current_station = self.route.first

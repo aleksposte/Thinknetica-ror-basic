@@ -23,7 +23,7 @@ class CargoTrain < Train
     if @speed != 0
       puts "Cначала остановите поезд!"
     elsif  carriage.type != 'cargo'
-      puts "Это вагон не являеься Грузовым"
+      puts "Это вагон не является Грузовым"
     else
       self.carriages_all.push(carriage)
       puts "У поезда #{num} Грузовых вагонов: #{self.carriages_all.size}"
