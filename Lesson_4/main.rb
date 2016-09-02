@@ -66,7 +66,7 @@ def choice
     when "2"
       new_train
     when "3"
-      new_passenger_train
+      new_carriage
     when "4"
       new_carriage
         when "5"
@@ -104,6 +104,24 @@ def new_train
   end
 choice.print_choice 
 end
+
+def new_carriage
+  puts "Укажите поезд"
+  num = gets.chomp
+  # puts num.type
+  if @trains.include?(num)
+    puts "Этот поезд - грузовой, к нему будет добавлен грузовой вагон"
+    carriage = CargoCarriage.new
+    self.carriages_all.push(carriage)
+  # elsif n_train.type == 'passenger'
+  #   puts "Этот поезд - пассажирский, к нему будет добавлен пассажирский вагон"
+  #   carriage = PassengerCarriage.new
+  #   self.carriages_all.push(carriage)
+  else
+    puts "Такого поезда нет"
+  end
+end
+
 
 # Хотел сначала поезда сразу по типу разбить, но сильно много кода получается :(
 # def new_cargo_train

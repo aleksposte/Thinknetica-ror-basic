@@ -16,29 +16,32 @@ class PassengerTrain < Train
 
   def initialize(num)
       super
-      @type = 'passenger'
+      @type = :passenger
   end
   
-  def add_carriage(carriage)
-    if @speed != 0
-      puts "Cначала остановите поезд!"
-    elsif 
-      carriage.type != 'passenger'
-      puts "Это вагон не являеться Пассажирским"
-    else
-      self.carriages_all.push(carriage)
-      puts "У поезда #{num} Пассажирских вагонов: #{self.carriages_all.size}"
-    end
-  end
 
-  def delete_carriage(carriage)
-    if @speed != 0
-      puts "Cначала остановите поезд!"
-    else
-      self.carriages_all.delete(carriage)
-      puts "Удален вагон, в составе осталось #{self.carriages_all.size} вагонов"
-    end
-  end
+  # Старый вариант
+  
+  # def add_carriage(carriage)
+  #   if @speed != 0
+  #     puts "Cначала остановите поезд!"
+  #   elsif 
+  #     carriage.type != 'passenger'
+  #     puts "Это вагон не являеться Пассажирским"
+  #   else
+  #     self.carriages_all.push(carriage)
+  #     puts "У поезда #{num} Пассажирских вагонов: #{self.carriages_all.size}"
+  #   end
+  # end
+
+  # def delete_carriage(carriage)
+  #   if @speed != 0
+  #     puts "Cначала остановите поезд!"
+  #   else
+  #     self.carriages_all.delete(carriage)
+  #     puts "Удален вагон, в составе осталось #{self.carriages_all.size} вагонов"
+  #   end
+  # end
 
 end
 

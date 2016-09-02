@@ -14,30 +14,31 @@ class CargoTrain < Train
   attr_accessor :cargo
                 # :type
 
+
   def initialize(num)
       super
-      @type = 'cargo'
+      @type = :cargo
   end
 
-  def add_carriage(carriage)
-    if @speed != 0
-      puts "Cначала остановите поезд!"
-    elsif  carriage.type != 'cargo'
-      puts "Это вагон не является Грузовым"
-    else
-      self.carriages_all.push(carriage)
-      puts "У поезда #{num} Грузовых вагонов: #{self.carriages_all.size}"
-    end
-  end
+  # def add_carriage(carriage)
+  #   if @speed != 0
+  #     puts "Cначала остановите поезд!"
+  #   elsif  carriage.type != 'cargo'
+  #     puts "Это вагон не является Грузовым"
+  #   else
+  #     self.carriages_all.push(carriage)
+  #     puts "У поезда #{num} Грузовых вагонов: #{self.carriages_all.size}"
+  #   end
+  # end
 
-  def delete_carriage(carriage)
-    if @speed != 0
-      puts "Cначала остановите поезд!"
-    else
-      self.carriages_all.delete(carriage)
-      puts "Удален вагон, в составе осталось #{self.carriages_all.size} вагонов"
-    end
-  end
+  # def delete_carriage(carriage)
+  #   if @speed != 0
+  #     puts "Cначала остановите поезд!"
+  #   else
+  #     self.carriages_all.delete(carriage)
+  #     puts "Удален вагон, в составе осталось #{self.carriages_all.size} вагонов"
+  #   end
+  # end
 
 end
 
