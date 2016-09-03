@@ -7,57 +7,37 @@
 #      - Просматривать список станций и список поездов на станции
 
 
-
+require_relative 'menu.rb'
 require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'train.rb'
 require_relative 'cargo_train.rb'
-require_relative 'cargo_carriage.rb'
 require_relative 'passenger_train.rb'
+require_relative 'carriage.rb'
+require_relative 'cargo_carriage.rb'
 require_relative 'passenger_carriage.rb'
 
 
-class Control
+class Controller
 
 attr_accessor :stations,
-              :trains,
-              :cargo_train,
-              :passenger_train
+              :trains
 
 def initialize
   @stations = []
   @trains = []
-  @cargo_train = []
-  @passenger_train = []
-
+  # @cargo_train = []
+  # @passenger_train = []
 end
 
-# Список действий
-# Создать станцию
-# Создать поезд
-# добавить ванон к поезду
-# Удалить вагон у поезда
-# Добавить поезд на станцию
-# Просмотреть список станций
-# Просмотреть список поездов на станции
-
-def print_choice
-list = <<TEXT
-  Укажите номер действия:
-  Создать станцию - 1
-  Создать поезд - 2
-  Добавить вагон к поезду - 3
-  Удалить вагон у поезда  - 4
-  Добавить поезд на станцию - 5
-  Просмотреть список станций - 6
-  Просмотреть список поездов на станции - 7
-  # Просмотреть список поездов на станции - 8
-TEXT
-puts list
+def start
+  loop do
+    menu
+    run
+  end
 end
 
-
-def choice
+def run
   puts "Что вы хотите сделать?"
   action = gets.chomp
   case action
@@ -66,18 +46,20 @@ def choice
     when "2"
       new_train
     when "3"
-      new_carriage
+      add_carriage
     when "4"
-      new_carriage
-        when "5"
-          when "6"
-            when "7"
-              when "8"
+      delete_carriage
+    when "5"
+      add_train_to_station
+    when "6"
+      all_stations
+    when "7"
+      list_trains_to_station
+    when "8"
+      exit
   end
-  action = gets.chomp
-  puts action
+  # puts action
 end
-
 
 def new_station
   puts "Укажите имя станции:"
@@ -85,7 +67,6 @@ def new_station
   station = Station.new(name)
   @stations.push(station)
   puts "Создана станция #{name}"
-choice.print_choice
 end
 
 def new_train
@@ -102,26 +83,68 @@ def new_train
   else
     puts "Такого типа поезда нет"
   end
-choice.print_choice 
 end
 
-def new_carriage
-  puts "Укажите поезд"
-  num = gets.chomp
-  # puts num.type
-  if @trains.include?(num)
+def all_trains
+   @trains.each_with_index { |train, n| puts "#{n} #{train.num}"}
+end
+
+def add_carriage
+  puts "Укажите номер поезда"
+  all_trains
+  num = gets.chomp.to_i
+  puts @trains[num].type
+
+  if trains[num].type == :cargo
     puts "Этот поезд - грузовой, к нему будет добавлен грузовой вагон"
     carriage = CargoCarriage.new
-    self.carriages_all.push(carriage)
-  # elsif n_train.type == 'passenger'
-  #   puts "Этот поезд - пассажирский, к нему будет добавлен пассажирский вагон"
-  #   carriage = PassengerCarriage.new
-  #   self.carriages_all.push(carriage)
+      @trains[num].carriages.push(carriage)
+  elsif trains[num].type == :passenger
+    puts "Этот поезд - пассажирский, к нему будет добавлен пассажирский вагон"
+    carriage = PassengerCarriage.new
+      @trains[num].carriages.push(carriage)  
   else
     puts "Такого поезда нет"
   end
 end
 
+def delete_carriage
+  puts "Укажите номер поезда"
+  all_trains  
+  num = gets.chomp
+  @trains.carriages.delete(num)
+end
+
+def add_train_to_station
+  puts "Выберите номер станции к которой хотите добавить поезд"
+  puts all_stations
+  num_st = gets.chomp.to_i
+  # puts stations[num_st]
+  puts "Укажите номер поезда"
+  all_trains
+  num_tr = gets.chomp.to_i
+  # puts trains[num].num
+
+# При попытке записать в станцию новый поезд получаю 
+# undefined method `push' for #<Station:
+# но ведь это массив, почему не могу добавить?
+
+  @stations[num_st].push(@trains[num_tr].num)
+  puts "На станцию #{num_st} Прибыл поезд #{trains[num_tr].num}"
+end
+
+def all_stations
+  @stations.each_with_index{ |station, n| puts " #{n} #{station.name}" }
+end
+
+def list_trains_to_station
+  puts "Выберите номер станции"
+  puts all_stations
+  num_st = gets.chomp.to_i
+  puts all_stations[num_st].name
+  puts "На станции #{all_stations[num_st].name} находятся поезда: "
+  @all_stations[num_st].trains.each_pair { |type, num| puts "#{type} #{num}" }
+end
 
 # Хотел сначала поезда сразу по типу разбить, но сильно много кода получается :(
 # def new_cargo_train
@@ -185,8 +208,5 @@ end
 
 end
 
-
-choice = Control.new
-choice.print_choice
-choice.choice
-# choice.new_station
+controller = Controller.new
+controller.start

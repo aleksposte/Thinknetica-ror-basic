@@ -1,13 +1,4 @@
 
-
-# require_relative 'train.rb'
-# require_relative 'carriage.rb'
-# require_relative 'cargo_train.rb'
-# require_relative 'cargo_carriage.rb'
-# require_relative 'passenger_train.rb'
-# require_relative 'passenger_carriage.rb'
-
-
 class Train
 
  attr_accessor:num,
@@ -18,7 +9,6 @@ class Train
               :current_station,
               :route
   
-  # def initialize(num)      
   def initialize(num)
     @num = num
     @type = type
@@ -92,7 +82,7 @@ class Train
 #   end
 
 # Маршрут следования
- # Переделать с  использование объекта route 
+# Переделать с  использование объекта route 
 
   def accept_route(route)
     @route = route
