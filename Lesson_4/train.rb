@@ -1,13 +1,13 @@
 
 class Train
 
- attr_accessor:num,
-              :type,
-              :carriage,
-              :carriages,
-              :speed,
-              :current_station,
-              :route
+attr_accessor:num,
+            :type,
+            :carriage,
+            :carriages,
+            :speed,
+            :current_station,
+            :route
   
   def initialize(num)
     @num = num
@@ -31,10 +31,10 @@ class Train
   end
 
 # Добавление вагонов
-
+# Нужно @type вместо self.type.
   def add_carriage(carriage)
     puts "Cначала остановите поезд!" if @speed != 0
-    if carriage.type != self.type
+    if carriage.type != @type
       puts "Тип поезда и вагона не совпадают"
     else
       @carriages.push(carriage)
@@ -44,7 +44,7 @@ class Train
 
   def delete_carriage(carriage)
     puts "Cначала остановите поезд!" if @speed != 0
-    if carriage.type != self.type
+    if carriage.type != @type
       puts "Тип поезда и вагона не совпадают"
     else
       @carriages.delete(carriage)
@@ -52,37 +52,7 @@ class Train
     end
   end
 
-# Test
-# tr = CargoTrain.new(55)
-# tr3 = PassengerTrain.new(88)
-
-# c1 = CargoCarriage.new
-# c2 = CargoCarriage.new
-# c3 = PassengerCarriage.new
-
-# Старый вариант
-# def add_carriage(carriage)
-#     if @speed != 0
-#       puts "Cначала остановите поезд!"
-#     elsif  carriage.type != 'cargo'
-#       puts "Это вагон не является Грузовым"
-#     else
-#       self.carriages.push(carriage)
-#       puts "У поезда #{num} Грузовых вагонов: #{self.carriages.size}"
-#     end
-#   end
-
-#   def delete_carriage(carriage)
-#     if @speed != 0
-#       puts "Cначала остановите поезд!"
-#     else
-#       self.carriages.delete(carriage)
-#       puts "Удален вагон, в составе осталось #{self.carriages.size} вагонов"
-#     end
-#   end
-
 # Маршрут следования
-# Переделать с  использование объекта route 
 
   def accept_route(route)
     @route = route
@@ -94,7 +64,7 @@ class Train
      if @current_station == @route.list_stations.last
       puts "Это последняя станция"
     else
-      next_station = @route.list_stations[@route.list_stations.index(@current_station) + 1]
+      next_station
       puts "Следущая станция #{next_station}"
     end
   end
@@ -103,7 +73,7 @@ class Train
     if @current_station == @route.list_stations.first
       puts "Это первая станция"
     else
-      prev_station = @route.list_stations[@route.list_stations.index(@current_station) - 1]
+      prev_station
       puts "Предыдущая станция #{prev_station}"
     end
   end
@@ -111,7 +81,7 @@ class Train
 # Премещения поезда между станциями
 
   def go_next_station
-    @current_station = @route.list_stations[@route.list_stations.index(@current_station) + 1]
+    @current_station = next_station
     puts "Поезд приехал на станцию #{@current_station}"
     puts "Это конечная станция, можно ехать обратно" if @current_station == @route.list_stations.last
   end
@@ -123,10 +93,20 @@ class Train
       @current_station != @route.list_stations.last
       puts "Это еще не конечная станция, едем вперед" 
     else 
-      @current_station == @route.list_stations[@route.list_stations.index(@current_station) - 1]
+      @current_station == prev_station
       puts "Поезд приехал на станцию #{self.current_station}"
     end
   end
 
+private
+
+  def next_station
+    next_station = @route.list_stations[@route.list_stations.index(@current_station) + 1]
+  end
+
+  def prev_station
+    prev_station = @route.list_stations[@route.list_stations.index(@current_station) - 1]
+  end
+  
 end
 

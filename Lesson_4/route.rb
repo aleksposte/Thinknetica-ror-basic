@@ -1,7 +1,7 @@
 
 class Route
-# Исходя из такого использования, пожалуй, route в классе Route было лучше.
-  attr_accessor :list_stations
+
+attr_accessor :list_stations
 
   def initialize(first, last)
     @list_stations = [first, last]
