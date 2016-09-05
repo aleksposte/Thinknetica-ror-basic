@@ -19,6 +19,7 @@ attr_accessor:num,
     @carriages = []
     @speed = 0
     @route = []
+    @@trains[num] = self
   end
 
   def accelerate(speed)
@@ -106,7 +107,7 @@ attr_accessor:num,
 
 def self.find(num)
   train = @@trains[num]
-  return train
+   return train
 end
 
 private
