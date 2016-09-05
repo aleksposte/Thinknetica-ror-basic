@@ -1,5 +1,6 @@
 
 require_relative 'menu.rb'
+require_relative 'manufacturer.rb'
 require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'train.rb'
@@ -9,7 +10,18 @@ require_relative 'carriage.rb'
 require_relative 'cargo_carriage.rb'
 require_relative 'passenger_carriage.rb'
 
+
 class Controller
+
+TRAIN_TYPES = {
+                :cargo     => CargoTrain,
+                :passenger => PassengerTrain
+}
+
+CARRIAGE_TYPES = {
+                  :cargo     => CargoCarriage,
+                  :passenger => PassengerCarriage
+}
 
 attr_accessor :stations,
               :trains
@@ -61,11 +73,6 @@ attr_accessor :stations,
 # Спасибо, за идею, как то я не подумал про использование констант, впредь постараюсь
 # ими пользоваться
 
-TRAIN_TYPES = {
-                :cargo     => CargoTrain,
-                :passenger => PassengerTrain
-}
-
  def new_train
     puts "Укажите тип поезда (cargo или passenger)"
     type = gets.chomp.to_sym
@@ -107,20 +114,35 @@ TRAIN_TYPES = {
     puts "Укажите номер поезда"
     all_trains
     num = gets.chomp.to_i
-    puts @trains[num].type
+    # puts @trains[num].type
 
-    if trains[num].type == :cargo
-      puts "Этот поезд - грузовой, к нему будет добавлен грузовой вагон"
-      carriage = CargoCarriage.new
-        @trains[num].carriages.push(carriage)
-    elsif trains[num].type == :passenger
-      puts "Этот поезд - пассажирский, к нему будет добавлен пассажирский вагон"
-      carriage = PassengerCarriage.new
-        @trains[num].carriages.push(carriage)  
+    carriage_type = CARRIAGE_TYPES[@trains[num].type]
+    if carriage_type
+      @trains[num].carriages.push(carriage_type.new)
+      puts "Этот поезд типа #{@trains[num].type}, к нему будет добавлен вагон типа #{carriage_type}"
     else
       puts "Такого поезда нет"
     end
   end
+
+# def add_carriage
+#     puts "Укажите номер поезда"
+#     all_trains
+#     num = gets.chomp.to_i
+#     puts @trains[num].type
+
+#     if trains[num].type == :cargo
+#       puts "Этот поезд - грузовой, к нему будет добавлен грузовой вагон"
+#       carriage = CargoCarriage.new
+#         @trains[num].carriages.push(carriage)
+#     elsif trains[num].type == :passenger
+#       puts "Этот поезд - пассажирский, к нему будет добавлен пассажирский вагон"
+#       carriage = PassengerCarriage.new
+#         @trains[num].carriages.push(carriage)  
+#     else
+#       puts "Такого поезда нет"
+#     end
+#   end
 
   def delete_carriage
     puts "Укажите номер поезда"
