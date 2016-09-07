@@ -10,20 +10,31 @@
 
 module InstanceCounter
 
-  module Instances
-    def initialize
+# Можно сразу receiver.include InstanceMethods.
+  def self.included(receiver)
+    receiver.extend            ClassMethods
+    receiver.send :include,    InstanceMethods
+  end
+
+  module ClassMethods
+    
+    @@instances = -1
+
+    def instances
       @@instances += 1
     end
+
   end
   
   module InstanceMethods
     
   end
+end
+
   
   # Можно сразу receiver.include InstanceMethods.
-  def self.included(receiver)
-    receiver.extend     Instances
-    receiver.send :include,    InstanceMethods
-  end
+  # def self.included(receiver)
+  #   receiver.extend     Instances
+  #   receiver.send :include,    InstanceMethods
+  # end
 
-end

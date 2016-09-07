@@ -1,8 +1,7 @@
 # require_relative 'manufacturer.rb'
 require_relative 'instance_counter.rb'
 
-require_relative 'cargo_train.rb'
-require_relative 'passenger_train.rb'
+
 
 class Train
 
@@ -10,7 +9,7 @@ class Train
 include InstanceCounter
 
 @@trains = {}
-@@instances = 0
+# @@instances = 0
 
 attr_accessor:num,
             :type,
@@ -27,7 +26,8 @@ attr_accessor:num,
 # p CargoTrain.find(141)
 
   def self.find(num)
-    @trains[num]
+    self.train.num
+    # @trains.values(self.trains.num)
    # puts "#{self.train.num}"
    # self.trains.num
    # @@trains.each_pair do |tr, n|
@@ -40,9 +40,7 @@ attr_accessor:num,
 # Метод класса:
 #        - instances, который возвращает кол-во экземпляров данного класса
 
-  def self.instances
-    @@instances
-  end
+  
  
   def initialize(num)
     @num = num
@@ -51,11 +49,8 @@ attr_accessor:num,
     @carriages = []
     @speed = 0
     @route = []
-    @@trains[num] = self
-    puts @trains
-    puts @@trains
-    # puts @train
-    # @@instances += 1
+    # @@trains[num] = self
+    # puts @trains
   end
 
   def accelerate(speed)
@@ -155,3 +150,5 @@ private
   
 end
 
+require_relative 'cargo_train.rb'
+require_relative 'passenger_train.rb'
