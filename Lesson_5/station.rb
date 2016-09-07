@@ -14,15 +14,16 @@
 
 class Station
 
-@@all = 0
+@@all = []
 
 attr_accessor :name, 
               :trains,
               :cargo_train,
               :passenger_train
-
+# Нужно возвращать объекты вместо количества станций.
+# Добавил добавление в @@all при инициализации
   def initialize(name)
-    @@all += 1
+    @@all.push(self)
     @name = name
     @trains = {
                 :cargo     => [],

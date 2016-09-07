@@ -110,6 +110,7 @@ attr_accessor :stations,
      @trains.each_with_index { |train, n| puts "#{n} #{train.num}"}
   end
 
+# Переделал с константами
   def add_carriage
     puts "Укажите номер поезда"
     all_trains
@@ -125,6 +126,7 @@ attr_accessor :stations,
     end
   end
 
+# Старый вариант
 # def add_carriage
 #     puts "Укажите номер поезда"
 #     all_trains

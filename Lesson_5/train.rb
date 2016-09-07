@@ -1,8 +1,16 @@
+# require_relative 'manufacturer.rb'
+require_relative 'instance_counter.rb'
+
+require_relative 'cargo_train.rb'
+require_relative 'passenger_train.rb'
 
 class Train
 
-include Manufacturer
+# include Manufacturer
+include InstanceCounter
+
 @@trains = {}
+@@instances = 0
 
 attr_accessor:num,
             :type,
@@ -11,7 +19,31 @@ attr_accessor:num,
             :speed,
             :current_station,
             :route
-  
+
+
+# Что будет в этом случае?
+# cargo_star = CargoTrain.new(141)
+# red_arrow  = PassengerTrain.new(141)
+# p CargoTrain.find(141)
+
+  def self.find(num)
+    @trains[num]
+   # puts "#{self.train.num}"
+   # self.trains.num
+   # @@trains.each_pair do |tr, n|
+   #  if n == num && tr.type == @@trains[self].type
+   #    puts tr
+   #  end
+   # end
+  end
+
+# Метод класса:
+#        - instances, который возвращает кол-во экземпляров данного класса
+
+  def self.instances
+    @@instances
+  end
+ 
   def initialize(num)
     @num = num
     @type = type
@@ -20,6 +52,10 @@ attr_accessor:num,
     @speed = 0
     @route = []
     @@trains[num] = self
+    puts @trains
+    puts @@trains
+    # puts @train
+    # @@instances += 1
   end
 
   def accelerate(speed)
@@ -35,7 +71,7 @@ attr_accessor:num,
   end
 
 # Добавление вагонов
-# Нужно @type вместо self.type.
+
   def add_carriage(carriage)
     puts "Cначала остановите поезд!" if @speed != 0
     if carriage.type != @type
@@ -101,14 +137,11 @@ attr_accessor:num,
       puts "Поезд приехал на станцию #{self.current_station}"
     end
   end
+
   # В классе Train создать метод класса find, 
 # который принимает номер поезда (указанный при его создании) и 
 # возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
-
-def self.find(num)
-  train = @@trains[num]
-   return train
-end
+# Зачем так сложно? Почему не просто: @@trains[num].
 
 private
 

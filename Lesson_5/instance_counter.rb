@@ -9,16 +9,21 @@
 #         При этом данный метод не должен быть публичным.
 
 module InstanceCounter
-  module ClassMethods
-    
+
+  module Instances
+    def initialize
+      @@instances += 1
+    end
   end
   
   module InstanceMethods
     
   end
   
+  # Можно сразу receiver.include InstanceMethods.
   def self.included(receiver)
-    receiver.extend         ClassMethods
-    receiver.send :include, InstanceMethods
+    receiver.extend     Instances
+    receiver.send :include,    InstanceMethods
   end
+
 end
