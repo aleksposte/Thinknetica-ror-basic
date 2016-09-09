@@ -1,14 +1,11 @@
 # require_relative 'manufacturer.rb'
-require_relative 'instance_counter.rb'
-
-
-
-class Train
+# require_relative 'instance_counter.rb'
 
 # include Manufacturer
-include InstanceCounter
+# include InstanceCounter
 
-@@trains = {}
+class Train
+  
 # @@instances = 0
 
 attr_accessor:num,
@@ -25,23 +22,12 @@ attr_accessor:num,
 # red_arrow  = PassengerTrain.new(141)
 # p CargoTrain.find(141)
 
-  def self.find(num)
-    self.train.num
-    # @trains.values(self.trains.num)
-   # puts "#{self.train.num}"
-   # self.trains.num
-   # @@trains.each_pair do |tr, n|
-   #  if n == num && tr.type == @@trains[self].type
-   #    puts tr
-   #  end
-   # end
-  end
+class << self; attr_accessor :trains end
+  @trains = {}
 
 # Метод класса:
 #        - instances, который возвращает кол-во экземпляров данного класса
 
-  
- 
   def initialize(num)
     @num = num
     @type = type
@@ -49,8 +35,8 @@ attr_accessor:num,
     @carriages = []
     @speed = 0
     @route = []
-    # @@trains[num] = self
-    # puts @trains
+    self.class.trains[num] = self
+    # register_instance
   end
 
   def accelerate(speed)
@@ -137,6 +123,10 @@ attr_accessor:num,
 # который принимает номер поезда (указанный при его создании) и 
 # возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
 # Зачем так сложно? Почему не просто: @@trains[num].
+
+def self.find(num)
+  @trains[num]
+end
 
 private
 

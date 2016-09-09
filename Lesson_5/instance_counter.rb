@@ -17,17 +17,18 @@ module InstanceCounter
   end
 
   module ClassMethods
-    
     @@instances = -1
 
     def instances
       @@instances += 1
     end
-
   end
   
   module InstanceMethods
     
+    def register_instance
+      register_instance += 1
+    end
   end
 end
 
