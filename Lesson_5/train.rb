@@ -1,12 +1,10 @@
-# require_relative 'manufacturer.rb'
-# require_relative 'instance_counter.rb'
-
-# include Manufacturer
-# include InstanceCounter
-
+require_relative 'manufacturer.rb'
+require_relative 'instance_counter.rb'
+# 
 class Train
-  
-# @@instances = 0
+
+include Manufacturer
+include InstanceCounter
 
 attr_accessor:num,
             :type,
@@ -36,7 +34,7 @@ class << self; attr_accessor :trains end
     @speed = 0
     @route = []
     self.class.trains[num] = self
-    # register_instance
+    register_instance
   end
 
   def accelerate(speed)
