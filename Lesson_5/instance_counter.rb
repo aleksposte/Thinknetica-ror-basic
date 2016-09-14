@@ -10,33 +10,35 @@
 # module InstanceCounter
 
 module InstanceCounter
-attr_accessor :instances
+# attr_reader :instances
 
   def self.included(receiver)
     receiver.extend         ClassMethods 
     receiver.send :include, InstanceMethods 
   end
+
 module ClassMethods
-    def instances_count
-      @instances ||= 0
-      @instances += 1
-    end
 
   def instances
-      @instances
-   end
+      @instances ||= 0
   end
 
-  module InstanceMethods
+  private
+   def instances_count
+      
+      @instances = self.instances + 1
+    end
+  end
+
+module InstanceMethods
    
-    private
+  private
     def register_instance
-      self.class.instances_count
+      self.class.send(:instances_count)
     end
   end
 end
 
- 
   # Можно сразу receiver.include InstanceMethods. - у меня выдает ошибку :(
   # def self.included(receiver)
   #   receiver.extend     Instances

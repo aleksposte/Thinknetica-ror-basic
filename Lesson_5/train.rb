@@ -1,6 +1,6 @@
 require_relative 'manufacturer.rb'
 require_relative 'instance_counter.rb'
-# 
+
 class Train
 
 include Manufacturer
@@ -14,17 +14,8 @@ attr_accessor:num,
             :current_station,
             :route
 
-
-# Что будет в этом случае?
-# cargo_star = CargoTrain.new(141)
-# red_arrow  = PassengerTrain.new(141)
-# p CargoTrain.find(141)
-
 class << self; attr_accessor :trains end
   @trains = {}
-
-# Метод класса:
-#        - instances, который возвращает кол-во экземпляров данного класса
 
   def initialize(num)
     @num = num
