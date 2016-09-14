@@ -31,7 +31,22 @@ attr_accessor :name,
                 :cargo     => [],
                 :passenger => []
     }
+  end
 
+  # validate_new_station!
+
+  def validate_new_station!
+    # raise "Наименование станции не может быть пустым" if name.nil?
+    raise puts "Наименование станции не соответствует формату" if @name !~ NAME_STATION
+    raise puts "Длина наименования станции слишком велика" if @name.length > 5
+    rescue StandardError
+      puts "попробуйте еще раз"
+  end
+
+  def valid?
+    validate_new_station!
+  rescue 
+    false
   end
 
   def add_train(train)

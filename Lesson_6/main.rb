@@ -24,7 +24,7 @@ CARRIAGE_TYPES = {
                   :passenger => PassengerCarriage
 }
 
-TRAIN_TYPE_VALIDE = /^(cargo\z|passenger\z)/
+# TRAIN_TYPE_VALIDE = /^(cargo\z|passenger\z)/
 
 attr_accessor :stations,
               :trains
@@ -68,7 +68,7 @@ attr_accessor :stations,
     puts "Укажите Наименование станции(Используются буквы или цифры, не более 5 знаков):"
     name = gets.chomp
 
-    
+
     station = Station.new(name) 
       @stations.push(station)
       puts "Создана станция #{name}"
@@ -78,20 +78,15 @@ attr_accessor :stations,
     puts "Укажите тип поезда (cargo или passenger)"
     type = gets.chomp.to_sym
 
-    # raise "Тип поезда не соответствует формату" if type !~ TRAIN_TYPE_VALIDE
-    # rescue RuntimeError
-    #   puts "Попробуйте еще раз"
-    # # retry  
-    
     puts "Укажите номер поезда"
     num = gets.chomp
 
     train_class = TRAIN_TYPES[type]
-    if train_class && train_class.new(num).valid?
-      @trains.push(train_class.new(num))
+    if train_class
+      @trains.push(train_class.new(num)) 
       puts "Создан поезд типа #{type} номер #{num}"
-    # else
-    #   puts "Такого типа поезда нет"
+    else
+      puts "Такого типа поезда нет"
     end
   end
 

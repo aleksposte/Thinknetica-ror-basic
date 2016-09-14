@@ -14,7 +14,7 @@ end
 
 class PassengerTrain < Train
 
-  # @trains = { :a => 200 }
+  @trains = { :b => 500 }
 
 end
 

@@ -43,7 +43,7 @@ class << self; attr_accessor :trains end
 
   def validate_new_train!
     # raise puts "Номер поезда не может быть пустым" if num.nil?
-    raise puts "Номер поезда не соответствует формату" if num !~ NUM_TRAIN
+    raise puts "Номер поезда не соответствует формату(Допустимый формат: xxx-xx или xxxxx)" if num !~ NUM_TRAIN
     true
   rescue TypeError
     puts "Попробуйте еще раз"
@@ -51,6 +51,7 @@ class << self; attr_accessor :trains end
 
   def valid?
     validate_new_train!
+    true
   rescue 
     false
   end
