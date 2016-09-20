@@ -1,15 +1,21 @@
 
+#Modules
+require_relative 'modules/manufacturer.rb'
+require_relative 'modules/instance_counter.rb'
+require_relative 'modules/validate.rb'
+
 require_relative 'menu.rb'
 require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'train.rb'
-# require_relative 'cargo_train.rb' # перенес в Train
+
+# перенес в Train
+# require_relative 'cargo_train.rb' 
 # require_relative 'passenger_train.rb'
 require_relative 'carriage.rb'
 require_relative 'cargo_carriage.rb'
 require_relative 'passenger_carriage.rb'
-# require_relative 'manufacturer.rb'
-# require_relative 'instance_counter.rb'
+
 
 
 class Controller
@@ -68,10 +74,12 @@ attr_accessor :stations,
     puts "Укажите Наименование станции(Используются буквы или цифры, не более 5 знаков):"
     name = gets.chomp
 
-
     station = Station.new(name) 
       @stations.push(station)
       puts "Создана станция #{name}"
+    rescue StandardError
+      puts "попробуйте еще раз"
+    retry
   end
 
  def new_train
@@ -88,6 +96,9 @@ attr_accessor :stations,
     else
       puts "Такого типа поезда нет"
     end
+    rescue StandardError
+      puts "попробуйте еще раз"
+    retry
   end
 
   def all_trains

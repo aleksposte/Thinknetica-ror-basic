@@ -1,10 +1,9 @@
-require_relative 'manufacturer.rb'
-require_relative 'instance_counter.rb'
-# 
+
 class Train
 
 include Manufacturer
 include InstanceCounter
+include Validate
 
 NUM_TRAIN = /^[а-яa-z\d]{3}-?[а-яa-z\d]{2}$/i
 
@@ -19,11 +18,6 @@ attr_accessor:num,
 class << self; attr_accessor :trains end
   @trains = {}
 
-# Релизовать проверку на формат номера поезда. Допустимый формат: 
-# три буквы или цифры в любом порядке, 
-# необязательный дефис 
-# (может быть, а может нет) и еще 2 буквы или цифры после дефиса.
-
   def initialize(num)
     @num = num
     @type = type
@@ -31,30 +25,12 @@ class << self; attr_accessor :trains end
     @carriages = []
     @speed = 0
     @route = []
-    validate_new_train!
+    validate!
     self.class.trains[num] = self
     register_instance
   end
 
-# - Программа запрашивает у пользователя данные для создания поезда (номер и другие необходимые атрибуты)
-# - Если атрибуты валидные, то выводим информацию о том, что создан такой-то поезд
-# - Если введенные данные невалидные, то программа должна вывести сообщение о возникших ошибках и заново запросить данные у пользователя. 
-#  Реализовать это через механизм обработки исключений
-
-  def validate_new_train!
-    # raise puts "Номер поезда не может быть пустым" if num.nil?
-    raise puts "Номер поезда не соответствует формату(Допустимый формат: xxx-xx или xxxxx)" if num !~ NUM_TRAIN
-    true
-  rescue TypeError
-    puts "Попробуйте еще раз"
-  end
-
-  def valid?
-    validate_new_train!
-    true
-  rescue 
-    false
-  end
+  
 
   def accelerate(speed)
     @speed += speed
@@ -139,6 +115,15 @@ class << self; attr_accessor :trains end
 def self.find(num)
   @trains[num]
 end
+
+protected
+
+  # validate_train
+  def validate!
+    # raise puts "Номер поезда не может быть пустым" if num.nil?
+    raise puts "Номер поезда не соответствует формату(Допустимый формат: xxx-xx или xxxxx)" if num !~ NUM_TRAIN
+    true
+  end
 
 private
 
