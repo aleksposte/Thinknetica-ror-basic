@@ -54,14 +54,13 @@ attr_accessor :name,
 # передавая каждый поезд в блок.
 
   def trains_in(&block)
-    block = @trains.each { |train| }
+    @trains.each { |train| block.call(train) }
   end
 
   private
 
   # validate_station
   def validate!
-    # raise "Наименование станции не может быть пустым" if name.nil?
     raise puts "Наименование станции не соответствует формату" if @name !~ NAME_STATION
     raise puts "Длина наименования станции слишком велика" if @name.length > 5
   end

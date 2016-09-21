@@ -29,7 +29,6 @@ class << self; attr_accessor :trains end
     register_instance
   end
 
-  
 
   def accelerate(speed)
     @speed += speed
@@ -41,6 +40,15 @@ class << self; attr_accessor :trains end
 
   def print_speed
     puts speed
+  end
+
+# У класса Train:
+ # написать метод, который принимает блок и проходит по всем вагонам поезда 
+ # (вагоны должны быть во внутреннем массиве), 
+ # передавая каждый объект вагона в блок.
+ 
+  def carriage_in(&block)
+    @carriages.each { |carriage| block.call(carriage) }
   end
 
 # Добавление вагонов
