@@ -88,4 +88,21 @@
 # puts c.vacancies
 
 
+@trains = {
+          :cargo => [1, 2, 3],
+          :passenger => [4, 5, 6]
+
+}
+
+def list_trains
+  @trains.train_in do |train|
+    puts train
+  end
+end
+
+def train_in(&block)
+  train.each { |train| }
+  block.call(train)
+end
+
 

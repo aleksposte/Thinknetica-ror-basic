@@ -47,8 +47,10 @@ class << self; attr_accessor :trains end
  # (вагоны должны быть во внутреннем массиве), 
  # передавая каждый объект вагона в блок.
  
-  def carriage_in(&block)
-    @carriages.each { |carriage| block.call(carriage) }
+  def carriages_in(&block)
+    self.carriages.each do |carriage| 
+      block.call(carriage)
+    end
   end
 
 # Добавление вагонов

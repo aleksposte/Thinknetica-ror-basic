@@ -66,6 +66,10 @@ attr_accessor :stations,
       when "7"
         list_trains_to_station
       when "8"
+        list_carriages_to_train
+      when "9"
+        load_carriage
+      when "10"
         exit
     end
   end
@@ -105,15 +109,32 @@ attr_accessor :stations,
      @trains.each_with_index { |train, n| puts "#{n} #{train.num}"}
   end
 
+# При создании вагона указывать кол-во мест или общий объем, 
+# в зависимости от типа вагона
+
   def add_carriage
     puts "Укажите номер поезда"
     all_trains
     num = gets.chomp.to_i
+    if @trains[num].type == :cargo
+
+        puts "Укажите объем вагона"
+        capacity = gets.chomp.to_i
+        puts capacity
+      else
+        puts "Укажите количество мест в вагоне"
+        capacity = gets.chomp.to_i
+      end
 
     carriage_type = CARRIAGE_TYPES[@trains[num].type]
     if carriage_type
-      @trains[num].carriages.push(carriage_type.new)
+      @trains[num].carriages.push(carriage_type.new(capacity))
       puts "Этот поезд типа #{@trains[num].type}, к нему будет добавлен вагон типа #{carriage_type}"
+      if @trains[num].type == :cargo
+        puts "объемом: #{capacity}"
+      else
+        puts "с количеством мест: #{capacity}"
+      end
     else
       puts "Такого поезда нет"
     end
@@ -143,15 +164,69 @@ attr_accessor :stations,
     @stations.each_with_index{ |station, n| puts " #{n} #{station.name}" }
   end
 
+# Выводить список поездов на станции (в указанном выше формате)
+#  Номер поезда, тип, кол-во вагонов
+
   def list_trains_to_station
     puts "Выберите номер станции"
     puts all_stations
     num_st = gets.chomp.to_i
-    puts "На станции #{all_stations[num_st].name} находятся поезда: "
-    @stations[num_st].trains.each_with_index{ |num, n| puts "#{n} #{num}" }
+    # puts "На станции #{all_stations[num_st].name} находятся поезда: "
+    # @stations[num_st].trains.each_with_index{ |num, n| puts "#{n} #{num}" }
+    selected_station = all_stations[num_st]
+    puts " На станции #{selected_station.name} находятся поезда: "
+      i = 1
+      selected_station.trains_in do |train|
+        puts train
+       puts "#{train.num} и у него #{train.carriages.size}вагонов"
+      i += 1
+      end
+  end
+
+# Выводить список вагонов у поезда (в указанном выше формате)
+# А для каждого поезда на станции выводить список вагонов в формате:
+# - Номер вагона (можно назначать автоматически), тип вагона, 
+# кол-во свободных и занятых мест (для пассажирского вагона) 
+# или кол-во свободного и занятого объема (для грузовых вагонов).
+
+  def list_carriages_to_train
+    puts "Укажите номер поезда"
+    all_trains
+    num = gets.chomp.to_i
+    selected_train = all_trains[num]
+
+    i = 1
+    selected_train.carriages_in do |carriage|
+      if selected_train.type == :cargo
+        puts " №#{i} Тип вагона: cargo,  Занято объема: #{carriage.occupied} Осталось свободного объема: #{carriage.vacancies}"
+      else
+        puts " №#{i} Тип вагона: passenger,  Занято мест: #{carriage.occupied} Осталось мест: #{carriage.vacancies}"
+      end
+    i += 1
+    end
+  end
+  
+  # Занимать место или объем в вагоне
+
+  def load_carriage
+    # puts "Укажите поезд"
+    # all_trains
+    # puts "Укажите вагон"
+    list_carriages_to_train
+    puts "Выберите вагон"
+    selected_carriage = carriage[i]
+    puts selected_carriage
+    if selected_train.type == :cargo
+      puts "Укажите объем"
+      load = gets.chomp.to_i
+      # selected_carriage = 
+    end
   end
 
 end
 
 controller = Controller.new
 controller.start
+
+# tr1 = CargoTrain.new("rtygh")
+

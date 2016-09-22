@@ -54,7 +54,10 @@ attr_accessor :name,
 # передавая каждый поезд в блок.
 
   def trains_in(&block)
-    @trains.each { |train| block.call(train) }
+    puts block
+    self.trains.each do |train| 
+      block.call(train) 
+    end
   end
 
   private
