@@ -101,7 +101,7 @@ def list_trains
 end
 
 def train_in(&block)
-  train.each { |train| }
+  train.each_value { |train| }
   block.call(train)
 end
 

@@ -79,12 +79,12 @@ class << self; attr_accessor :trains end
 
   def accept_route(route)
     @route = route
-    @current_station = @route.list_stations.first
-    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{@route.list_stations.first} - #{@route.list_stations.last}"
+    @current_station = stations.first
+    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{stations.first} - #{stations_last}"
   end
 
   def print_next_station
-     if @current_station == @route.list_stations.last
+     if @current_station == stations_last
       puts "Это последняя станция"
     else
       next_station
@@ -93,7 +93,7 @@ class << self; attr_accessor :trains end
   end
 
   def print_prev_station
-    if @current_station == @route.list_stations.first
+    if @current_station == stations.first
       puts "Это первая станция"
     else
       prev_station
@@ -106,14 +106,14 @@ class << self; attr_accessor :trains end
   def go_next_station
     @current_station = next_station
     puts "Поезд приехал на станцию #{@current_station}"
-    puts "Это конечная станция, можно ехать обратно" if @current_station == @route.list_stations.last
+    puts "Это конечная станция, можно ехать обратно" if @current_station == stations_last
   end
 
   def go_prev_station
-    if @current_station == @route.list_stations.first
+    if @current_station == stations.first
       puts "Это первая станция, можно ехать только вперед"
     elsif 
-      @current_station != @route.list_stations.last
+      @current_station != stations_last
       puts "Это еще не конечная станция, едем вперед" 
     else 
       @current_station == prev_station
@@ -124,6 +124,18 @@ class << self; attr_accessor :trains end
 def self.find(num)
   @trains[num]
 end
+
+# Для упрощения записи:
+
+def stations.first
+  stations.first = @route.list_stations.first
+end
+
+def stations_last
+  stations_last = @route.list_stations.last
+end
+
+
 
 protected
 

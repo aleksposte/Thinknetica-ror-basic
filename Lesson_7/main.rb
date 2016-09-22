@@ -178,7 +178,7 @@ attr_accessor :stations,
       i = 1
       selected_station.trains_in do |train|
         puts train
-       puts "#{train.num} и у него #{train.carriages.size}вагонов"
+       puts "#{trainюtype} #{train.num} #{train.carriages.size}"
       i += 1
       end
   end
@@ -228,5 +228,4 @@ end
 controller = Controller.new
 controller.start
 
-# tr1 = CargoTrain.new("rtygh")
 
