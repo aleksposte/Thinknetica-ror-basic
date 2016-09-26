@@ -97,6 +97,7 @@ attr_accessor :stations,
     if train_class
       @trains.push(train_class.new(num)) 
       puts "Создан поезд типа #{type} номер #{num}"
+      puts "Поезда все: #{all_trains}"
     else
       puts "Такого типа поезда нет"
     end
@@ -167,20 +168,26 @@ attr_accessor :stations,
 # Выводить список поездов на станции (в указанном выше формате)
 #  Номер поезда, тип, кол-во вагонов
 
-  def list_trains_to_station
+  # def list_trains_to_station
+  #   puts "Выберите номер станции"
+  #   puts all_stations
+  #   num_st = gets.chomp.to_i
+  #   puts "На станции #{all_stations[num_st].name} находятся поезда: "
+  #   @stations[num_st].trains.each_with_index{ |num, n| puts "#{n} #{num.to_s}" }
+  # end
+
+def list_trains_to_station
     puts "Выберите номер станции"
     puts all_stations
     num_st = gets.chomp.to_i
-    # puts "На станции #{all_stations[num_st].name} находятся поезда: "
-    # @stations[num_st].trains.each_with_index{ |num, n| puts "#{n} #{num}" }
-    selected_station = all_stations[num_st]
+    
+    selected_station = @stations[num_st]
     puts " На станции #{selected_station.name} находятся поезда: "
-      i = 1
-      selected_station.trains_in do |train|
-        puts train
-       puts "#{trainюtype} #{train.num} #{train.carriages.size}"
-      i += 1
-      end
+    # puts "#{selected_station.trains}"
+    trains = lambda do |train|
+      puts "Номер: #{train.num}, тип: #{train.type}, количество вагонов: #{train.carriages.length} "
+    end
+    selected_station.train_in(trains)
   end
 
 # Выводить список вагонов у поезда (в указанном выше формате)
@@ -195,31 +202,48 @@ attr_accessor :stations,
     num = gets.chomp.to_i
     selected_train = all_trains[num]
 
-    i = 1
+    n = 1
     selected_train.carriages_in do |carriage|
       if selected_train.type == :cargo
-        puts " №#{i} Тип вагона: cargo,  Занято объема: #{carriage.occupied} Осталось свободного объема: #{carriage.vacancies}"
+        puts " №#{n} Тип вагона: cargo,  Занято объема: #{carriage.occupied} Осталось свободного объема: #{carriage.vacancies}"
       else
-        puts " №#{i} Тип вагона: passenger,  Занято мест: #{carriage.occupied} Осталось мест: #{carriage.vacancies}"
+        puts " №#{n} Тип вагона: passenger,  Занято мест: #{carriage.occupied} Осталось мест: #{carriage.vacancies}"
       end
-    i += 1
+    n += 1
     end
   end
   
   # Занимать место или объем в вагоне
 
   def load_carriage
-    # puts "Укажите поезд"
-    # all_trains
-    # puts "Укажите вагон"
-    list_carriages_to_train
-    puts "Выберите вагон"
-    selected_carriage = carriage[i]
-    puts selected_carriage
+    puts "Укажите поезд:"
+    all_trains
+    num_train = gets.chomp.to_i
+    selected_train = all_trains[num_train]
+    puts "Укажите вагон"
+    n = 1
+    selected_train.carriages_in do |carriage|
+      if selected_train.type == :cargo
+        puts " №#{n} Тип вагона: cargo,  Занято объема: #{carriage.occupied} Осталось свободного объема: #{carriage.vacancies}"
+      else
+        puts " №#{n} Тип вагона: passenger,  Занято мест: #{carriage.occupied} Осталось мест: #{carriage.vacancies}"
+      end
+    n += 1
+    end
+    num_carriage = gets.chomp.to_i
+    
+    selected_carriage = selected_train.carriages[num_carriage - 1]
+    puts  "Вагон: #{selected_carriage}"
     if selected_train.type == :cargo
       puts "Укажите объем"
-      load = gets.chomp.to_i
-      # selected_carriage = 
+      value = gets.chomp.to_i
+      selected_carriage.load(value)
+      # puts "В вагон загружено: #{value}, свободного места осталось: #{selected_carriage.vacancies}"
+    else
+      puts "Укажите количестко мест"
+      value = gets.chomp.to_i
+      selected_carriage.load(value)
+      # puts "Вы заняли: #{value} мест, свободных мест осталось: #{selected_carriage.vacancies}"
     end
   end
 

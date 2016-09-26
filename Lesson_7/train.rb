@@ -79,8 +79,8 @@ class << self; attr_accessor :trains end
 
   def accept_route(route)
     @route = route
-    @current_station = stations.first
-    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{stations.first} - #{stations_last}"
+    @current_station = stations_first
+    puts "Поезд находится на станции #{current_station} и поедет по марщруту #{stations_first} - #{stations_last}"
   end
 
   def print_next_station
@@ -93,7 +93,7 @@ class << self; attr_accessor :trains end
   end
 
   def print_prev_station
-    if @current_station == stations.first
+    if @current_station == stations_first
       puts "Это первая станция"
     else
       prev_station
@@ -110,7 +110,7 @@ class << self; attr_accessor :trains end
   end
 
   def go_prev_station
-    if @current_station == stations.first
+    if @current_station == stations_first
       puts "Это первая станция, можно ехать только вперед"
     elsif 
       @current_station != stations_last
@@ -127,8 +127,8 @@ end
 
 # Для упрощения записи:
 
-def stations.first
-  stations.first = @route.list_stations.first
+def stations_first
+  stations_first = @route.list_stations.first
 end
 
 def stations_last

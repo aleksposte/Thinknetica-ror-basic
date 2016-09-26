@@ -53,9 +53,8 @@ attr_accessor :name,
 # написать метод, который принимает блок и проходит по всем поездам на станции, 
 # передавая каждый поезд в блок.
 
-  def trains_in(&block)
-    # puts block
-    self.trains.each_value do |train| 
+  def train_in(block)
+    @trains.values.flatten.each do |train| 
       block.call(train)
     end
   end

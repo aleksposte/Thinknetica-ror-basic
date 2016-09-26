@@ -13,10 +13,10 @@ class PassengerCarriage < Carriage
   end
 
 # Добавить метод, который "занимает места" в вагоне (по одному за раз)
-  def load
+  def load(value)
     if @load < @capacity 
       @load += 1
-      puts "Вы заняли место, свободных осталось #{@capacity - @load}"
+      puts "Вы заняли мест #{value}, свободных осталось #{@capacity - @load}"
     else
       puts "Мест больше нет"
     end

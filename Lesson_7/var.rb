@@ -88,21 +88,28 @@
 # puts c.vacancies
 
 
-@trains = {
-          :cargo => [1, 2, 3],
-          :passenger => [4, 5, 6]
+# @trains = {
+#           :cargo => [1, 2, 3],
+#           :passenger => [4, 5, 6]
 
-}
+# }
+# puts @trains
 
-def list_trains
-  @trains.train_in do |train|
-    puts train
-  end
+# # tr = @trains.each_value { |t| }
+# tr = @trains.to_a
+
+
+# puts tr
+
+h = { a: [1, 3], b: 3 }
+
+h.each do |key, value|
+  puts value
 end
 
-def train_in(&block)
-  train.each_value { |train| }
-  block.call(train)
-end
+
+
+
+
 
 
