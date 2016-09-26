@@ -25,12 +25,13 @@ attr_accessor :name,
   end
 
   def add_train(train)
-    @trains[train.type].push(train.num)
+    @trains[train.type].push(train)
     puts "На станцию #{name} Прибыл поезд #{train.num}"
+    puts "Trains class train: #{@trains}"
   end
 
   def delete_train(train)
-    @trains[train.type].delete(train.num)
+    @trains[train.type].delete(train)
     puts "Со станции #{name} отбыл поезд #{train.num}"
   end
 

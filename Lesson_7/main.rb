@@ -177,14 +177,14 @@ attr_accessor :stations,
   # end
 
 def list_trains_to_station
-    puts "Выберите номер станции"
+    puts "Выберите номер станции" 
     puts all_stations
     num_st = gets.chomp.to_i
     
     selected_station = @stations[num_st]
     puts " На станции #{selected_station.name} находятся поезда: "
-    # puts "#{selected_station.trains}"
     trains = lambda do |train|
+      puts train
       puts "Номер: #{train.num}, тип: #{train.type}, количество вагонов: #{train.carriages.length} "
     end
     selected_station.train_in(trains)
@@ -197,7 +197,8 @@ def list_trains_to_station
 # или кол-во свободного и занятого объема (для грузовых вагонов).
 
   def list_carriages_to_train
-    puts "Укажите номер поезда"
+    # raise "Список поездов пуст, создайте поезд!" if @train.nil?
+    puts "Укажите номер поезда" 
     all_trains
     num = gets.chomp.to_i
     selected_train = all_trains[num]
