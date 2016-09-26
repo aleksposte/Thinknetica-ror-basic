@@ -7,12 +7,12 @@ include Validate
 NUM_TRAIN = /^[а-яa-z\d]{3}-?[а-яa-z\d]{2}$/i
 
 attr_accessor:num,
-            :type,
-            :carriage,
-            :carriages,
-            :speed,
-            :current_station,
-            :route
+             :type,
+             :carriage,
+             :carriages,
+             :speed,
+             :current_station,
+             :route
 
 class << self; attr_accessor :trains end
   @trains = {}
@@ -48,7 +48,7 @@ class << self; attr_accessor :trains end
  # передавая каждый объект вагона в блок.
  
   def carriages_in(&block)
-    self.carriages.each do |carriage| 
+    @carriages.each do |carriage| 
       block.call(carriage)
     end
   end

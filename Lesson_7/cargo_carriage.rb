@@ -17,7 +17,7 @@ class CargoCarriage
 # Добавить метод, которые "занимает объем" в вагоне (объем указывается в качестве параметра метода)
   def load(value)
     if value < @capacity 
-      @load += value
+      # @load += value
       puts "Вы заняли объем #{value}, свободно осталось #{@capacity - @load}"
     else
       puts "Места больше нет"

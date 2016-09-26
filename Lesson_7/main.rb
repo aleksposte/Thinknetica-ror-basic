@@ -75,12 +75,10 @@ attr_accessor :stations,
   end
 
   def new_station
-    puts "Укажите Наименование станции(Используются буквы или цифры, не более 5 знаков):"
+    puts "Укажите Наименование станции (Используются буквы или цифры, не более 5 знаков):"
     name = gets.chomp
-
-    station = Station.new(name) 
-      @stations.push(station)
-      puts "Создана станция #{name}"
+    create_station!(name)
+    
     rescue StandardError
       puts "попробуйте еще раз"
     retry
@@ -89,18 +87,10 @@ attr_accessor :stations,
  def new_train
     puts "Укажите тип поезда (cargo или passenger)"
     type = gets.chomp.to_sym
-
     puts "Укажите номер поезда"
     num = gets.chomp
-
-    train_class = TRAIN_TYPES[type]
-    if train_class
-      @trains.push(train_class.new(num)) 
-      puts "Создан поезд типа #{type} номер #{num}"
-      puts "Поезда все: #{all_trains}"
-    else
-      puts "Такого типа поезда нет"
-    end
+    create_train!
+    
     rescue StandardError
       puts "попробуйте еще раз"
     retry
@@ -245,6 +235,24 @@ def list_trains_to_station
       value = gets.chomp.to_i
       selected_carriage.load(value)
       # puts "Вы заняли: #{value} мест, свободных мест осталось: #{selected_carriage.vacancies}"
+    end
+  end
+
+# Helper methods
+
+  def create_station!(name)
+    station = Station.new(name) 
+    @stations.push(station)
+      puts "Создана станция #{name}"
+  end
+
+  def create_train!
+    train_class = TRAIN_TYPES[type]
+    if train_class
+      @trains.push(train_class.new(num)) 
+      puts "Создан поезд типа #{type} номер #{num}"
+    else
+      puts "Такого типа поезда нет"
     end
   end
 
