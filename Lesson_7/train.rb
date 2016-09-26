@@ -125,7 +125,8 @@ def self.find(num)
   @trains[num]
 end
 
-# Для упрощения записи:
+
+# Helper methods
 
 def stations_first
   stations_first = @route.list_stations.first

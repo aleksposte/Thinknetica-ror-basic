@@ -4,7 +4,7 @@ require_relative 'modules/manufacturer.rb'
 require_relative 'modules/instance_counter.rb'
 require_relative 'modules/validate.rb'
 
-require_relative 'menu.rb'
+# require_relative 'menu.rb'
 require_relative 'station.rb'
 require_relative 'route.rb'
 require_relative 'train.rb'
@@ -42,7 +42,8 @@ attr_accessor :stations,
 
   def start
     loop do
-      menu
+      puts File.read('menu.txt')
+      # menu
       run
     end
   end
