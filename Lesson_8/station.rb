@@ -48,11 +48,6 @@ class Station
     @@all
   end
 
-  # У класса Station:
-  # написать метод, который принимает блок и
-  # проходит по всем поездам на станции,
-  # передавая каждый поезд в блок.
-
   def train_in(block)
     @trains.values.flatten.each do |train|
       # @trains.values.flatten.each(&block)
@@ -64,7 +59,7 @@ class Station
 
   # validate_station
   def validate!
-    fail puts 'Наименование станции не соответствует формату' if @name !~ NAME_STATION
+    fail puts 'Наименование не соответствует формату' if @name !~ NAME_STATION
     fail puts 'Длина наименования станции слишком велика' if @name.length > 5
   end
 end

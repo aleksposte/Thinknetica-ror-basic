@@ -46,7 +46,7 @@ class Train
     end
   end
 
-  # Добавление вагонов
+  # Adding && deleting carriages
 
   def add_carriage(carriage)
     puts 'Cначала остановите поезд!' if @speed != 0
@@ -69,7 +69,7 @@ class Train
     end
   end
 
-  # Маршрут следования
+  # Routing
 
   def accept_route(route)
     @route = route
@@ -84,7 +84,7 @@ class Train
     else
       next_station
       puts "Следущая станция #{next_station}"
-   end
+    end
   end
 
   def print_prev_station
@@ -96,12 +96,12 @@ class Train
     end
   end
 
-  # Премещения поезда между станциями
+  # Moving trains between stations
 
   def go_next_station
     @current_station = next_station
     puts "Поезд приехал на станцию #{@current_station}"
-    puts 'Это конечная станция, едем обратно' if @current_station == stations_last
+    puts 'Это конечная станция' if @current_station == stations_last
   end
 
   def go_prev_station
@@ -137,7 +137,7 @@ class Train
 
   # validate_train
   def validate!
-    fail puts 'Номер не соответствует формату(Допустимый: xxx-xx или xxxxx)' if num !~ NUM_TRAIN
+    fail puts 'Номер не соответствует формату (xxx-xx или xxxxx)' if num !~ NUM_TRAIN
     true
   end
 
