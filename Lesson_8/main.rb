@@ -26,7 +26,7 @@ class Controller
     cargo: CargoCarriage,
     passenger: PassengerCarriage
   }
-  
+
   attr_accessor :stations,
                 :trains
 
@@ -108,12 +108,12 @@ class Controller
       capacity = gets.chomp.to_i
     end
 
-    carriage_type = CARRIAGE_TYPES[@trains[num].type]
+    carriage_type = CARRIAGE_TYPES[train.type]
     if carriage_type
-      @trains[num].carriages.push(carriage_type.new(capacity))
-      puts "Этот поезд типа #{@trains[num].type},"
+      train.carriages.push(carriage_type.new(capacity))
+      puts "Этот поезд типа #{train.type},"
       puts "к нему будет добавлен вагон типа #{carriage_type}"
-      if @trains[num].type == :cargo
+      if train.type == :cargo
         puts "объемом: #{capacity}"
       else
         puts "с количеством мест: #{capacity}"
@@ -131,37 +131,34 @@ class Controller
   end
 
   def add_train_to_station
-    puts 'Выберите номер станции к которой добавить поезд'
-    puts all_stations
-    num_st = gets.chomp.to_i
+    # puts 'Выберите номер станции к которой добавить поезд'
+    # puts all_stations
+    # num_st = gets.chomp.to_i
 
     # puts 'Укажите номер поезда'
     # all_trains
     # num_tr = gets.chomp.to_i
     # @stations[num_st].add_train(trains[num_tr])
     
+    station = selected_station
     train = selected_train
-    @stations[num_st].add_train(train)
-
-    puts "На станцию #{num_st} Прибыл поезд #{trains[num_tr]}"
-  end
-
-  def all_stations
-    @stations.each_with_index { |station, n| puts " #{n} #{station.name}" }
+    station.add_train(train)
+    puts "На станцию #{station.name} Прибыл поезд #{train}"
   end
 
   def list_trains_to_station
-    puts 'Выберите номер станции'
-    puts all_stations
-    num_st = gets.chomp.to_i
+    # puts 'Выберите номер станции'
+    # puts all_stations
+    # num_st = gets.chomp.to_i
 
-    selected_station = @stations[num_st]
-    puts " На станции #{selected_station.name} находятся поезда: "
+    # selected_station = @stations[num_st]
+    station = selected_station
+    puts " На станции #{station.name} находятся поезда: "
     trains = lambda do |train|
       puts train
       puts "№: #{train.num}, тип: #{train.type}, вагонов: #{train.carriages.length} "
     end
-    selected_station.train_in(trains)
+    station.train_in(trains)
     end
 
   def list_carriages_to_train
@@ -239,7 +236,7 @@ class Controller
   end
 
   def select_train
-    raise "Список поездов пуст, создайте поезд!" if @train.nil?
+    fail 'Список поездов пуст, создайте поезд!' if @train.nil?
     puts 'Укажите номер поезда'
     all_trains
     num = gets.chomp.to_i
@@ -249,6 +246,19 @@ class Controller
 
   def all_trains
     @trains.each_with_index { |train, n| puts "#{n} #{train.num}" }
+  end
+
+  def selected_station
+    fail 'Список станций пуст, создайте станцию!' if @stations.nil?
+    puts 'Выберите номер станции'
+    puts all_stations
+    num = gets.chomp.to_i
+    selected_station = @stations[num]
+    selected_station
+  end
+
+  def all_stations
+    @stations.each_with_index { |station, n| puts " #{n} #{station.name}" }
   end
 
 end
