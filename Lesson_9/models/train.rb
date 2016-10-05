@@ -28,7 +28,8 @@ class Train
     @carriages = []
     @speed = 0
     @route = []
-    @attribute_class = self.class.to_s
+    # @attribute_class = self.class.to_s
+    @attribute_class = self
     validate!
     self.class.trains[num] = self
     register_instance
@@ -142,10 +143,10 @@ class Train
   protected
 
   # validate_train
-  # def validate!
-  #   fail puts 'Номер не соответствует формату (xxx-xx или xxxxx)' if num !~ NUM_TRAIN
-  #   true
-  # end
+  def validate!
+    fail puts 'Номер не соответствует формату (xxx-xx или xxxxx)' if num !~ NUM_TRAIN
+    true
+  end
 
   private
 

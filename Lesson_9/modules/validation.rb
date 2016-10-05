@@ -46,7 +46,7 @@ module Validation
   module ClassMethods
     attr_accessor :validations
 
-    def validate(name, type, arg = " ")
+    def validate(name, type, arg = "")
       self.validations ||= []
       rule = { type => { name: name, arg: arg } }
       validations << rule

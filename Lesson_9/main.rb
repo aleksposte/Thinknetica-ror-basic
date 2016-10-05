@@ -90,9 +90,9 @@ class Controller
     num = gets.chomp
     create_train!(type, num)
 
-  rescue StandardError
-    puts 'попробуйте еще раз'
-    retry
+  # rescue StandardError
+  #   puts 'попробуйте еще раз'
+  #   retry
   end
 
   def add_carriage
@@ -217,6 +217,10 @@ class Controller
     selected_train
   end
 
+  # def cargo?
+  #   cargo if type == :cargo
+  # end
+
   def all_trains
     @trains.each_with_index { |train, n| puts "#{n} #{train.num}" }
   end
@@ -233,6 +237,8 @@ class Controller
   def all_stations
     @stations.each_with_index { |station, n| puts " #{n} #{station.name}" }
   end
+
+
 
 end
 
