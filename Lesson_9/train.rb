@@ -1,7 +1,8 @@
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validate
+  include Accessors
+  include Validation
 
   NUM_TRAIN = /^[а-яa-z\d]{3}-?[а-яa-z\d]{2}$/i
 
@@ -16,6 +17,10 @@ class Train
   class << self; attr_accessor :trains end
   @trains = {}
 
+  validate :num, :presence
+  validate :num, :format, NUM_TRAIN
+  validate :attribute_class, :type, "Train"
+
   def initialize(num)
     @num = num
     @type = type
@@ -23,6 +28,7 @@ class Train
     @carriages = []
     @speed = 0
     @route = []
+    @attribute_class = self.class.to_s
     validate!
     self.class.trains[num] = self
     register_instance
@@ -136,10 +142,10 @@ class Train
   protected
 
   # validate_train
-  def validate!
-    fail puts 'Номер не соответствует формату (xxx-xx или xxxxx)' if num !~ NUM_TRAIN
-    true
-  end
+  # def validate!
+  #   fail puts 'Номер не соответствует формату (xxx-xx или xxxxx)' if num !~ NUM_TRAIN
+  #   true
+  # end
 
   private
 

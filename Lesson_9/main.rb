@@ -2,7 +2,8 @@
 # Modules
 require_relative 'modules/manufacturer.rb'
 require_relative 'modules/instance_counter.rb'
-require_relative 'modules/validate.rb'
+require_relative 'modules/validation.rb'
+require_relative 'modules/accessors.rb'
 
 # require_relative 'menu.rb'
 require_relative 'station.rb'
@@ -75,9 +76,9 @@ class Controller
     name = gets.chomp
     create_station!(name)
 
-  rescue StandardError
-    puts 'попробуйте еще раз'
-    retry
+  # rescue StandardError
+  #   puts 'попробуйте еще раз'
+  #   retry
   end
 
   def new_train
@@ -93,11 +94,6 @@ class Controller
   end
 
   def add_carriage
-    # puts 'Укажите номер поезда'
-    # all_trains
-    # num = gets.chomp.to_i
-    # if @trains[num].type == :cargo
-
     train = selected_train
     if train.type == :cargo
       puts 'Укажите объем вагона'
@@ -111,8 +107,7 @@ class Controller
     carriage_type = CARRIAGE_TYPES[train.type]
     if carriage_type
       train.carriages.push(carriage_type.new(capacity))
-      puts "Этот поезд типа #{train.type},"
-      puts "к нему будет добавлен вагон типа #{carriage_type}"
+      puts "Этот поезд типа #{train.type}, к нему будет добавлен вагон типа #{carriage_type}"
       if train.type == :cargo
         puts "объемом: #{capacity}"
       else
@@ -131,15 +126,6 @@ class Controller
   end
 
   def add_train_to_station
-    # puts 'Выберите номер станции к которой добавить поезд'
-    # puts all_stations
-    # num_st = gets.chomp.to_i
-
-    # puts 'Укажите номер поезда'
-    # all_trains
-    # num_tr = gets.chomp.to_i
-    # @stations[num_st].add_train(trains[num_tr])
-    
     station = selected_station
     train = selected_train
     station.add_train(train)
@@ -147,11 +133,6 @@ class Controller
   end
 
   def list_trains_to_station
-    # puts 'Выберите номер станции'
-    # puts all_stations
-    # num_st = gets.chomp.to_i
-
-    # selected_station = @stations[num_st]
     station = selected_station
     puts " На станции #{station.name} находятся поезда: "
     trains = lambda do |train|
@@ -162,11 +143,6 @@ class Controller
     end
 
   def list_carriages_to_train
-    # # raise "Список поездов пуст, создайте поезд!" if @train.nil?
-    # puts 'Укажите номер поезда'
-    # all_trains
-    # num = gets.chomp.to_i
-    # selected_train = all_trains[num]
     train = selected_train
     n = 1
     train.carriages_in do |carriage|
@@ -184,11 +160,6 @@ class Controller
   end
 
   def load_carriage
-    # choice_loading_carriage
-    # puts 'Укажите поезд:'
-    # all_trains
-    # num_train = gets.chomp.to_i
-    # selected_train = all_trains[num_train]
     train = selected_train
     puts 'Укажите вагон'
     n = 1
@@ -236,7 +207,7 @@ class Controller
   end
 
   def selected_train
-    fail 'Список поездов пуст, создайте поезд!' if @train.nil?
+    fail 'Список поездов пуст, создайте поезд!' if @trains.nil?
     puts 'Укажите номер поезда'
     all_trains
     num = gets.chomp.to_i

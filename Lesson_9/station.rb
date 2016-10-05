@@ -1,7 +1,9 @@
 
 class Station
+  
   include InstanceCounter
-  include Validate
+  include Accessors
+  include Validation
 
   NAME_STATION = /^[a-zа-я\d]/i
 
@@ -12,13 +14,17 @@ class Station
                 :cargo_train,
                 :passenger_train
 
+  validate :name, :presence
+  validate :name, :format, NAME_STATION
+  validate :attribute_class, :type, "Station"
+
   def initialize(name)
-    @@all.push(self)
     @name = name
+    @attribute_class = self.class.to_s
     validate!
     @trains = {
-      cargo: [],
-      passenger: []
+                cargo: [],
+                passenger: []
     }
   end
 
@@ -58,8 +64,8 @@ class Station
   private
 
   # validate_station
-  def validate!
-    fail puts 'Наименование не соответствует формату' if @name !~ NAME_STATION
-    fail puts 'Длина наименования станции слишком велика' if @name.length > 5
-  end
+  # def validate!
+  #   fail puts 'Наименование не соответствует формату' if @name !~ NAME_STATION
+  #   fail puts 'Длина наименования станции слишком велика' if @name.length > 5
+  # end
 end

@@ -21,7 +21,8 @@
 #  Если тип отличается от того, который указан вторым параметром, 
 #  то выбрасывается исключение. Если тип совпадает, то значение присваивается.
 
-module Acessors
+module Accessors
+
   
   module ClassMethods
     def attr_accessor_with_history(*methods)
