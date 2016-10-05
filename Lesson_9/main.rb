@@ -6,16 +6,18 @@ require_relative 'modules/validation.rb'
 require_relative 'modules/accessors.rb'
 
 # require_relative 'menu.rb'
-require_relative 'station.rb'
-require_relative 'route.rb'
-require_relative 'train.rb'
+require_relative 'models/station.rb'
+require_relative 'models/route.rb'
 
-# перенес в Train
+require_relative 'models/train.rb'
+# перенес в train
 # require_relative 'cargo_train.rb'
 # require_relative 'passenger_train.rb'
-require_relative 'carriage.rb'
-require_relative 'cargo_carriage.rb'
-require_relative 'passenger_carriage.rb'
+
+require_relative 'models/carriage.rb'
+# Перенес в carriage
+# require_relative 'models/cargo_carriage.rb'
+# require_relative 'models/passenger_carriage.rb'
 
 class Controller
   TRAIN_TYPES = {
