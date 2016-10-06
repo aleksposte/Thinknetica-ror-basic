@@ -57,8 +57,7 @@ module Validation
   module InstanceMethods
     
     def validate!
-      validations = self.class.validations
-      validations.each do |rule|
+      self.class.validations.each do |rule|
         rule.each do |type, params|
           value = get_instance_var_by_name(params[:name])
           send(type, value, params[:arg])
